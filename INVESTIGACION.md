@@ -1,6 +1,6 @@
 <h1 align="center">ZOO INFORMACION</h1>
 
-<img src="#" align="center" alt="https://github.com/JuanJoseDuranRinconCAMPUS2/zoologico_campus/blob/main/img/pajarito.jpg">
+<img src="https://github.com/JuanJoseDuranRinconCAMPUS2/zoologico_campus/blob/main/img/pajarito.jpg" align="center" alt="ave.jpg">
 
 <p align="center">para este proyecto se veran diferentes aspectos para el mantenimiento, funcionamiento, estabilidad y bienestar de un zoologico, se dividira en dos puntos que seran las exibiciones y productos de venta, cada uno se subdividira segun las necesidades de cada uno de estos puntos.
 </p>
