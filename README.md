@@ -8,7 +8,9 @@ En este proyecto, se creara una base de datos utilizando MongoDB para respaldar 
 
 ![](https://i0.wp.com/www.nuestramerida.com/wp-content/uploads/2023/04/zoologico-centernario.jpg?fit=1280%2C853&ssl=1)
 
+## **🐾🐨Como Funciona Un zoologico🐨🐾**
 
+### **[Informacion ¡Aqui!](https://github.com/JuanJoseDuranRinconCAMPUS2/zoologico_campus/blob/main/README.md)**
 
 ## 🐾🪷**Progreso del Proyecto**🪷🐾
 

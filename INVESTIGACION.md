@@ -1,6 +1,6 @@
-<h1 align="center">ZOO INFORMACION</h1>
+<h1 align="center">🐾🐨ZOO INFORMACION🐨🐾</h1>
 
-<img src="https://github.com/JuanJoseDuranRinconCAMPUS2/zoologico_campus/blob/main/img/pajarito.jpg" align="center" alt="ave.jpg">
+<img src="https://github.com/JuanJoseDuranRinconCAMPUS2/zoologico_campus/blob/main/img/investigacion.jpg" align="center" alt="investigacion.jpg">
 
 <p align="center">para este proyecto se veran diferentes aspectos para el mantenimiento, funcionamiento, estabilidad y bienestar de un zoologico, se dividira en dos puntos que seran las exibiciones y productos de venta, cada uno se subdividira segun las necesidades de cada uno de estos puntos.
 </p>
@@ -8,6 +8,8 @@
 ___
 
 <h2 align="center">EXIBICIONES</h2>
+
+<img src="https://github.com/JuanJoseDuranRinconCAMPUS2/zoologico_campus/blob/main/img/pajarito.jpg" align="center" alt="investigacion.jpg">
 
 <p align="center">las exibiciones son la clave para el zoo asi que deben tener cada una su cuidado y se debe asegurar un ambiente adecuado para cada uno, esto separara puntos importantes que son los siguientes.</p>
 
@@ -64,7 +66,7 @@ por lo que es necesario saber que ocurre con cada individuio, los datos mas nece
 		* ambiente propicio
 		* puntos de escondite
 ```
-	
+
 - psicologia
 ```
 		* horarios de exibicion
@@ -118,4 +120,3 @@ todos los trabajos necesitan de personal capacitado para realizar diferentes tar
 		* historial de ingresos y salidas
 		* seguros personales
 ```
-					
