@@ -10,7 +10,7 @@ En este proyecto, se creara una base de datos utilizando MongoDB para respaldar 
 
 ## **🐾🐨Como Funciona Un zoologico🐨🐾**
 
-### **[Informacion ¡Aqui!](https://github.com/JuanJoseDuranRinconCAMPUS2/zoologico_campus/blob/main/README.md)**
+### **[🛑Informacion ¡Aqui!🛑](https://github.com/JuanJoseDuranRinconCAMPUS2/zoologico_campus/blob/main/INVESTIGACION.md)**
 
 ## 🐾🪷**Progreso del Proyecto**🪷🐾
 
