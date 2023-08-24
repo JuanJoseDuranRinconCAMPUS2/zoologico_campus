@@ -1,6 +1,6 @@
 # **🌇🦓zoologico_campus🦓🌇**
 
-![](https://github.com/JuanJoseDuranRinconCAMPUS2/zoologico_campus/blob/main/img/Intro.png)
+![](https://github.com/JuanJoseDuranRinconCAMPUS2/zoologico_campus/blob/main/Documentation/img/Intro.png)
 
 ## 🛑🦓Descripción del proyecto🦓🛑
 
@@ -39,8 +39,8 @@ En este proyecto, se creara una base de datos utilizando MongoDB para respaldar 
 
 3. 🚧🐲Planificar la arquitectura de la API🐲🚧:
 
-   - [ ] Decidir las rutas y los endpoints necesarios para realizar operaciones CRUD en la base de datos.
-   - [ ] Diseñar cómo se manejarán las consultas de datos específicas (por especie, hábitat, cuidador, etc.).
+   - [x] Decidir las rutas y los endpoints necesarios para realizar operaciones CRUD en la base de datos.
+   - [x] Diseñar cómo se manejarán las consultas de datos específicas (por especie, hábitat, cuidador, etc.).
 
 
 
@@ -48,8 +48,8 @@ En este proyecto, se creara una base de datos utilizando MongoDB para respaldar 
 
 1. 🧭🚧Configuración del entorno🚧🧭:
 
-   - [ ] Instalar y configurar MongoDB en el proyecto.
-   - [ ] Configurar las dependencias a utilizar en el proyecto.
+   - [x] Instalar y configurar MongoDB en el proyecto.
+   - [x] Configurar las dependencias a utilizar en el proyecto.
 
 2. 👻🪙Creación de la base de datos y las colecciones🪙👻:
 
