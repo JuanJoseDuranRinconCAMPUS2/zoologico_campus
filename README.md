@@ -76,3 +76,7 @@ En este proyecto, se creara una base de datos utilizando MongoDB para respaldar 
 2. 🪙🚧Pruebas finales y ajustes🚧🪙:
    - [ ] Realizar pruebas exhaustivas en el entorno de producción para asegurarse de que la API funcione sin problemas.
    - [ ] Realizar ajustes según los resultados de las pruebas.
+
+   **diseño de base de datos**
+
+   <img src="https://github.com/JuanJoseDuranRinconCAMPUS2/zoologico_campus/blob/main/img/db.png" align="center" alt="investigacion.jpg">
