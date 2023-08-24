@@ -10,7 +10,7 @@ En este proyecto, se creara una base de datos utilizando MongoDB para respaldar 
 
 ## **🐾🐨Como Funciona Un zoologico🐨🐾**
 
-### **[🛑Informacion ¡Aqui!🛑](https://github.com/JuanJoseDuranRinconCAMPUS2/zoologico_campus/blob/main/INVESTIGACION.md)**
+### **[🛑Informacion ¡Aqui!🛑](https://github.com/JuanJoseDuranRinconCAMPUS2/zoologico_campus/blob/main/Documentation/INVESTIGACION.md)**
 
 ## 🐾🪷**Progreso del Proyecto**🪷🐾
 
@@ -18,18 +18,22 @@ En este proyecto, se creara una base de datos utilizando MongoDB para respaldar 
 
 1. 🐮🔎investigación e indagación🔎🐮:
 
-   - [ ] Realizar la investigación exhaustiva  acerca del funcionamiento de un zoológico
+   - [X] Realizar la investigación exhaustiva  acerca del funcionamiento de un zoológico
 
-   - [ ] Identificar los tipos de información a almacenar (animales, exhibiciones, cuidadores, visitantes, etc.).
+   - [X] Identificar los tipos de información a almacenar (animales, exhibiciones, cuidadores, visitantes, etc.).
 
-   - [ ] Determinar los campos y atributos necesarios para cada tipo de información.
+   - [X] Determinar los campos y atributos necesarios para cada tipo de información.
 
      
 
 2. 🎯🦒Diseñar la estructura de la base de datos🦒🎯:
 
-   - [ ] Definir las colecciones necesarias (Animales, Exhibiciones, Cuidadores, Visitantes).
-   - [ ] Identificar las relaciones entre las colecciones (animales asignados a exhibiciones, cuidadores responsables de animales, etc.).
+   - [X] Definir las colecciones necesarias (Animales, Exhibiciones, Cuidadores, Visitantes).
+   - [X] Identificar las relaciones entre las colecciones (animales asignados a exhibiciones, cuidadores responsables de animales, etc.).
+   
+   ### 
+   
+   [👾 CLICK HERE](https://github.com/JuanJoseDuranRinconCAMPUS2/zoologico_campus/blob/main/Documentation/img/db.png)
 
    
 
@@ -77,6 +81,3 @@ En este proyecto, se creara una base de datos utilizando MongoDB para respaldar 
    - [ ] Realizar pruebas exhaustivas en el entorno de producción para asegurarse de que la API funcione sin problemas.
    - [ ] Realizar ajustes según los resultados de las pruebas.
 
-   **diseño de base de datos**
-
-   <img src="https://github.com/JuanJoseDuranRinconCAMPUS2/zoologico_campus/blob/main/img/db.png" align="center" alt="investigacion.jpg">
