@@ -1,0 +1,93 @@
+//🪙Construccion de la Base de Datos de MongoDB🪙
+
+use("zoologico_Campus_JJ");
+
+//🚧⛩️Creacion de la coleccion habitat⛩️🚧
+
+use("zoologico_Campus_JJ");
+db.createCollection("habitat");
+
+//🚧🦊Creacion de la coleccion animales🦊🚧
+
+use("zoologico_Campus_JJ");
+db.createCollection("animales");
+
+//🚧🌰Creacion de la coleccion alimento🌰🚧
+
+use("zoologico_Campus_JJ");
+db.createCollection("alimento");
+
+//🚧💊Creacion de la coleccion medicamento💊🚧
+
+use("zoologico_Campus_JJ");
+db.createCollection("medicamento");
+
+//🚧🍽️Creacion de la coleccion his_Alimento🍽️🚧
+
+use("zoologico_Campus_JJ");
+db.createCollection("his_Alimento");
+
+//🚧🐰Creacion de la coleccion his_Exhibicion🐰🚧
+
+use("zoologico_Campus_JJ");
+db.createCollection("his_Exhibicion");
+
+//🚧🚨Creacion de la coleccion his_Atencion🚨🚧
+
+use("zoologico_Campus_JJ");
+db.createCollection("his_Atencion");
+
+//🚧🥼Creacion de la coleccion his_Medicamento🥼🚧
+
+use("zoologico_Campus_JJ");
+db.createCollection("his_Medicamento");
+
+//🚧💥Creacion de la coleccion his_Med_Negativo💥🚧
+
+use("zoologico_Campus_JJ");
+db.createCollection("his_Med_Negativo");
+
+//🚧🔗Creacion de la coleccion producto🔗🚧
+
+use("zoologico_Campus_JJ");
+db.createCollection("producto");
+
+//🚧🧨Creacion de la coleccion inventario🧨🚧
+
+use("zoologico_Campus_JJ");
+db.createCollection("inventario");
+
+//🚧🧑‍🦰Creacion de la coleccion cliente🧑‍🦰🚧
+
+use("zoologico_Campus_JJ");
+db.createCollection("cliente");
+
+//🚧🎫Creacion de la coleccion tickets🎫🚧
+
+use("zoologico_Campus_JJ");
+db.createCollection("tickets");
+
+//🚧👩‍💼Creacion de la coleccion ventas👩‍💼🚧
+
+use("zoologico_Campus_JJ");
+db.createCollection("ventas");
+
+//🚧⚛️Creacion de la coleccion especialidad⚛️🚧
+
+use("zoologico_Campus_JJ");
+db.createCollection("especialidad");
+
+//🚧👩‍💻Creacion de la coleccion empleado👩‍💻🚧
+
+use("zoologico_Campus_JJ");
+db.createCollection("empleado");
+
+//🚧🧧Creacion de la coleccion emp_Pago🧧🚧
+
+use("zoologico_Campus_JJ");
+db.createCollection("emp_Pago");
+
+//🚧📟Creacion de la coleccion emp_Seguro📟🚧
+
+use("zoologico_Campus_JJ");
+db.createCollection("emp_Seguro");
