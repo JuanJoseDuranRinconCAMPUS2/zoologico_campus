@@ -5,89 +5,851 @@ use("zoologico_Campus_JJ");
 //🚧⛩️Creacion de la coleccion habitat⛩️🚧
 
 use("zoologico_Campus_JJ");
-db.createCollection("habitat");
+db.createCollection("habitat", {
+    validator: {
+       $jsonSchema: {
+          bsonType: "object",
+          required: [ "_id","nombre", "dimensiones", "limite_Especimenes", "cantidad_Especimenes", "precio_Mantenimiento", "descripcion" ],
+          title: "habitat Validation",
+          properties: {
+             _id: {
+                bsonType: "int",
+                description: "'_id' debe ser un numero positivo",
+                pattern: "^[1-9][0-9]*$"
+             },
+             nombre: {
+                bsonType: "string",
+                description: "'nombre' puede contener letras y numeros pero no caracteres especiales",
+                pattern: "^[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ ]+$",
+                maxLength: 100
+             },
+             dimensiones: {
+                bsonType: "string",
+                description: "'dimensiones' ser una unidad de metros cuadrados",
+                pattern: "^[0-9]+[mM]2$",
+                maxLength: 20
+             },
+             limite_Especimenes: {
+                bsonType: "int",
+                description: "'limite_Especimenes' debe ser un numero positivo",
+                pattern: "^[1-9][0-9]*$",
+             },
+             cantidad_Especimenes: {
+                bsonType: "int",
+                description: "'cantidad_Especimenes' debe ser un numero positivo",
+                pattern: "^[1-9][0-9]*$",
+             },
+             precio_Mantenimiento: {
+                bsonType: "int",
+                description: " 'precio_Mantenimiento' debe ser un numero positivo",
+                pattern: "^[1-9][0-9]*$",
+             },
+             descripcion: {
+                bsonType: "string",
+                description: "'descripcion' puede contener letras y numeros pero no caracteres especiales",  
+                pattern: "^[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ ,.\s]+$",
+                maxLength: 250
+             }
+            },
+            additionalProperties: false
+         }
+     },
+     validationAction: "error",
+     validationLevel: "strict"
+});
 
 //🚧🦊Creacion de la coleccion animales🦊🚧
 
 use("zoologico_Campus_JJ");
-db.createCollection("animales");
+db.createCollection("animales", {
+    validator: {
+       $jsonSchema: {
+          bsonType: "object",
+          required: [ "_id","nombre", "especie", "dieta", "descripcion", "id_Habitat"],
+          title: "animales Validation",
+          properties: {
+             _id: {
+                bsonType: "int",
+                description: "'_id' debe ser un numero positivo",
+                pattern: "^[1-9][0-9]*$"
+             },
+             nombre: {
+                bsonType: "string",
+                description: "'nombre' puede contener letras y numeros pero no caracteres especiales",
+                pattern: "^[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ ]+$",
+                maxLength: 100
+             },
+             especie: {
+                bsonType: "string",
+                description: "'especie' puede contener letras y numeros pero no caracteres especiales",
+                pattern: "^[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ ]+$",
+                maxLength: 40
+             },
+             dieta: {
+                bsonType: "string",
+                description: "'dieta' puede contener letras y numeros pero no caracteres especiales",
+                pattern: "^[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ ,.\s]+$",
+                maxLength: 20
+             },
+             descripcion: {
+                bsonType: "string",
+                description: "'descripcion' puede contener letras y numeros pero no caracteres especiales",
+                pattern: "^[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ ,.\s]+$",
+                maxLength: 250
+             },
+             id_Habitat: {
+                bsonType: "int",
+                description: " 'id_Habitat' debe ser un numero positivo",
+                pattern: "^[1-9][0-9]*$",
+             }
+            },
+            additionalProperties: false
+         }
+     },
+     validationAction: "error",
+     validationLevel: "strict"
+});
 
 //🚧🌰Creacion de la coleccion alimento🌰🚧
 
 use("zoologico_Campus_JJ");
-db.createCollection("alimento");
+db.createCollection("alimento", {
+    validator: {
+       $jsonSchema: {
+          bsonType: "object",
+          required: [ "_id","nombre", "descripcion", "caducidad", "lugar_conservacion", "tipo_de_alimento", "precio_kg"],
+          title: "alimento Validation",
+          properties: {
+             _id: {
+                bsonType: "int",
+                description: "'_id' debe ser un numero positivo",
+                pattern: "^[1-9][0-9]*$"
+             },
+             nombre: {
+                bsonType: "string",
+                description: "'nombre' puede contener letras y numeros pero no caracteres especiales",
+                pattern: "^[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ ]+$",
+                maxLength: 50
+             },
+             descripcion: {
+                bsonType: "string",
+                description: "'descripcion' puede contener letras y numeros pero no caracteres especiales",
+                pattern: "^[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ ,.\s]+$",
+                maxLength: 250
+             },
+             caducidad: {
+                bsonType: "date",
+                description: "'caducidad' debe ser una fecha valida",
+             },
+             lugar_conservacion: {
+                bsonType: "string",
+                description: "'lugar_conservacion' puede contener letras y numeros pero no caracteres especiales",
+                pattern: "^[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ ,.\s]+$",
+                maxLength: 30
+             },
+             tipo_de_alimento: {
+                bsonType: "string",
+                description: "'tipo _de_alimento' puede contener letras y numeros pero no caracteres especiales",
+                pattern: "^[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ ,.\s]+$",
+                maxLength: 50
+             },
+             precio_kg: {
+                bsonType: "int",
+                description: " 'precio_kg' debe ser un numero positivo",
+                pattern: "^[1-9][0-9]*$",
+             }
+            },
+            additionalProperties: false
+         }
+     },
+     validationAction: "error",
+     validationLevel: "strict"
+});
 
 //🚧💊Creacion de la coleccion medicamento💊🚧
 
 use("zoologico_Campus_JJ");
-db.createCollection("medicamento");
+db.createCollection("medicamento", {
+    validator: {
+       $jsonSchema: {
+          bsonType: "object",
+          required: [ "_id","nombre","caducidad", "descripcion"],
+          title: "medicamento Validation",
+          properties: {
+             _id: {
+                bsonType: "int",
+                description: "'_id' debe ser un numero positivo",
+                pattern: "^[1-9][0-9]*$"
+             },
+             nombre: {
+                bsonType: "string",
+                description: "'nombre' puede contener letras y numeros pero no caracteres especiales",
+                pattern: "^[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ ,.\s]+$",
+                maxLength: 20
+             },
+             caducidad: {
+                bsonType: "date",
+                description: "'caducidad' debe ser una fecha valida",
+             },
+             descripcion: {
+                bsonType: "string",
+                description: "'descripcion' puede contener letras y numeros pero no caracteres especiales",
+                pattern: "^[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ ,.\s]+$",
+                maxLength: 255
+             }
+            },
+            additionalProperties: false
+         }
+     },
+     validationAction: "error",
+     validationLevel: "strict",
+});
 
 //🚧🍽️Creacion de la coleccion his_Alimento🍽️🚧
 
 use("zoologico_Campus_JJ");
-db.createCollection("his_Alimento");
+db.createCollection("his_Alimento", {
+   validator: {
+      $jsonSchema: {
+         bsonType: "object",
+         required: [ "_id","fecha_Suministro", "alimento", "descripcion", "id_Animal", "id_Alimento"],
+         title: "his_Alimento Validation",
+         properties: {
+            _id: {
+               bsonType: "int",
+               description: "'_id' debe ser un numero positivo",
+               pattern: "^[1-9][0-9]*$"
+            },
+            fecha_Suministro: {
+               bsonType: "date",
+               description: "'fecha_Suministro' debe ser una fecha valida",
+            },
+            alimento: {
+               bsonType: "string",
+               description: "'alimento' puede contener letras y numeros pero no caracteres especiales",
+               pattern: "^[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ ,.\s]+$",
+               maxLength: 50
+            },
+            descripcion: {
+               bsonType: "string",
+               description: "'descripcion' puede contener letras y numeros pero no caracteres especiales",
+               pattern: "^[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ ,.\s]+$",
+               maxLength: 250
+            },
+            id_Animal: {
+               bsonType: "int",
+               description: " 'id_Animal' debe ser un numero positivo",
+               pattern: "^[1-9][0-9]*$",
+            },
+            id_Alimento: {
+               bsonType: "int",
+               description: " 'id_Alimento' debe ser un numero positivo",
+               pattern: "^[1-9][0-9]*$",
+            }
+           },
+           additionalProperties: false
+        }
+    },
+    validationAction: "error",
+    validationLevel: "strict"
+});
 
 //🚧🐰Creacion de la coleccion his_Exhibicion🐰🚧
 
 use("zoologico_Campus_JJ");
-db.createCollection("his_Exhibicion");
+db.createCollection("his_Exhibicion", {
+   validator: {
+      $jsonSchema: {
+         bsonType: "object",
+         required: [ "_id","fecha_Inicio", "fecha_Fin", "id_Animal", "descripcion"],
+         title: "his_Exhibicion Validation",
+         properties: {
+            _id: {
+               bsonType: "int",
+               description: "'_id' debe ser un numero positivo",
+               pattern: "^[1-9][0-9]*$"
+            },
+            fecha_Inicio: {
+               bsonType: "date",
+               description: "'fecha_Inicio' debe ser una fecha valida",
+            },
+            fecha_Fin: {
+               bsonType: "date",
+               description: "'fecha_Suministro' debe ser una fecha valida",
+            },
+            id_Animal: {
+               bsonType: "int",
+               description: " 'id_Animal' debe ser un numero positivo",
+               pattern: "^[1-9][0-9]*$",
+            },
+            descripcion: {
+               bsonType: "string",
+               description: "'descripcion' puede contener letras y numeros pero no caracteres especiales",
+               pattern: "^[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ ,.\s]+$",
+               maxLength: 250
+            }
+           },
+           additionalProperties: false
+        }
+    },
+    validationAction: "error",
+    validationLevel: "strict"
+});
 
 //🚧🚨Creacion de la coleccion his_Atencion🚨🚧
 
 use("zoologico_Campus_JJ");
-db.createCollection("his_Atencion");
+db.createCollection("his_Atencion", {
+   validator: {
+      $jsonSchema: {
+         bsonType: "object",
+         required: [ "_id","tipo_Atencion", "medicamento", "descripcion",  "id_Animal"],
+         title: "his_Atencion Validation",
+         properties: {
+            _id: {
+               bsonType: "int",
+               description: "'_id' debe ser un numero positivo",
+               pattern: "^[1-9][0-9]*$"
+            },
+            tipo_Atencion: {
+               bsonType: "string",
+               description: "'tipo_Atencion' puede contener letras y numeros pero no caracteres especiales",
+               pattern: "^[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ ,.\s]+$",
+               maxLength: 100
+            },
+            medicamento: {
+               bsonType: "string",
+               description: "'medicamento' puede contener letras y numeros pero no caracteres especiales",
+               pattern: "^[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ ,.\s]+$",
+               maxLength: 100
+            },
+            descripcion: {
+               bsonType: "string",
+               description: "'descripcion' puede contener letras y numeros pero no caracteres especiales",
+               pattern: "^[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ ,.\s]+$",
+               maxLength: 250
+            },
+            id_Animal: {
+               bsonType: "int",
+               description: " 'id_Animal' debe ser un numero positivo",
+               pattern: "^[1-9][0-9]*$",
+            },
+           },
+           additionalProperties: false
+        }
+    },
+    validationAction: "error",
+    validationLevel: "strict"
+});
 
 //🚧🥼Creacion de la coleccion his_Medicamento🥼🚧
 
 use("zoologico_Campus_JJ");
-db.createCollection("his_Medicamento");
+db.createCollection("his_Medicamento", {
+   validator: {
+      $jsonSchema: {
+         bsonType: "object",
+         required: [ "_id","fecha_Suministro", "id_Medicamento", "id_Animal", "cant_suministro", "descripcion"],
+         title: "his_Medicamento Validation",
+         properties: {
+            _id: {
+               bsonType: "int",
+               description: "'_id' debe ser un numero positivo",
+               pattern: "^[1-9][0-9]*$"
+            },
+            fecha_Suministro: {
+               bsonType: "date",
+               description: "'fecha_Suministro' debe ser una fecha valida",
+            },
+            id_Medicamento: {
+               bsonType: "int",
+               description: " 'id_Medicamento' debe ser un numero positivo",
+               pattern: "^[1-9][0-9]*$",
+            },
+            id_Animal: {
+               bsonType: "int",
+               description: " 'id_Animal' debe ser un numero positivo",
+               pattern: "^[1-9][0-9]*$",
+            },
+            cant_suministro: {
+               bsonType: "string",
+               description: "'cant_suministro' debe ser un string puede contener numeross",
+               pattern: "^[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ ,.\s]+$",
+               maxLength: 100
+            },
+            descripcion: {
+               bsonType: "string",
+               description: "'descripcion' debe ser un string puede contener numeros",
+               pattern: "^[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ ,.\s]+$",
+               maxLength: 250
+            }
+           },
+           additionalProperties: false
+        }
+    },
+    validationAction: "error",
+    validationLevel: "strict"
+});
 
 //🚧💥Creacion de la coleccion his_Med_Negativo💥🚧
 
 use("zoologico_Campus_JJ");
-db.createCollection("his_Med_Negativo");
+db.createCollection("his_Med_Negativo", {
+   validator: {
+      $jsonSchema: {
+         bsonType: "object",
+         required: [ "_id", "id_medicamento", "descripcion", "id_Animal"],
+         title: "his_Med_Negativo Validation",
+         properties: {
+            _id: {
+               bsonType: "int",
+               description: "'_id' debe ser un numero positivo",
+               pattern: "^[1-9][0-9]*$"
+            },
+            id_medicamento: {
+               bsonType: "int",
+               description: " 'id_medicamento' debe ser un numero positivo",
+               pattern: "^[1-9][0-9]*$",
+            },
+            descripcion: {
+               bsonType: "string",
+               description: "'descripcion' debe ser un string puede contener numeros",
+               pattern: "^[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ ,.\s]+$",
+               maxLength: 250
+            },
+            id_Animal: {
+               bsonType: "int",
+               description: " 'id_Animal' debe ser un numero positivo",
+               pattern: "^[1-9][0-9]*$",
+            }
+           },
+           additionalProperties: false
+        }
+    },
+    validationAction: "error",
+    validationLevel: "strict"
+});
 
 //🚧🔗Creacion de la coleccion producto🔗🚧
 
 use("zoologico_Campus_JJ");
-db.createCollection("producto");
+db.createCollection("producto", {
+   validator: {
+      $jsonSchema: {
+         bsonType: "object",
+         required: [ "_id", "nombre", "descripcion", "precio", "caducidad"],
+         title: "producto Validation",
+         properties: {
+            _id: {
+               bsonType: "int",
+               description: "'_id' debe ser un numero positivo",
+               pattern: "^[1-9][0-9]*$"
+            },
+            nombre: {
+               bsonType: "string",
+               description: "'nombre' puede contener letras y numeros pero no caracteres especiales",
+               pattern: "^[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ ]+$",
+               maxLength: 40
+            },
+            descripcion: {
+               bsonType: "string",
+               description: "'descripcion' debe ser un string puede contener numeros y caracteres especiales",
+               pattern: "^[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ ,.\s]+$",
+               maxLength: 250
+            },
+            precio: {
+               bsonType: "int",
+               description: " 'precio' debe ser un numero positivo",
+               pattern: "^[1-9][0-9]*$",
+            }, 
+            caducidad: {
+               bsonType: [ "null", "date" ] , 
+               description: "'caducidad' debe ser una fecha valida",
+            },
+           },
+           additionalProperties: false
+        }
+    },
+    validationAction: "error",
+    validationLevel: "strict"
+});
 
 //🚧🧨Creacion de la coleccion inventario🧨🚧
 
 use("zoologico_Campus_JJ");
-db.createCollection("inventario");
+db.createCollection("inventario", {
+   validator: {
+      $jsonSchema: {
+         bsonType: "object",
+         required: [ "_id", "cantidad", "fecha_Ingreso", "descripcion", "id_Producto"],
+         title: "inventario Validation",
+         properties: {
+            _id: {
+               bsonType: "int",
+               description: "'_id' debe ser un numero positivo",
+               pattern: "^[1-9][0-9]*$"
+            },
+            cantidad: {
+               bsonType: "int",
+               description: " 'cantidad' debe ser un numero positivo",
+               pattern: "^[1-9][0-9]*$",
+            }, 
+            fecha_Ingreso: {
+               bsonType: [ "null", "date" ] , 
+               description: "'fecha_Ingreso' debe ser una fecha valida",
+            },
+            descripcion: {
+               bsonType: "string",
+               description: "'descripcion' debe ser un string puede contener numeros y caracteres especiales",
+               pattern: "^[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ ,.\s]+$",
+               maxLength: 250
+            },
+            id_Producto: {
+               bsonType: "int",
+               description: " 'id_Producto' debe ser un numero positivo",
+               pattern: "^[1-9][0-9]*$",
+            },
+           },
+           additionalProperties: false
+        }
+    },
+    validationAction: "error",
+    validationLevel: "strict"
+});
 
 //🚧🧑‍🦰Creacion de la coleccion cliente🧑‍🦰🚧
 
 use("zoologico_Campus_JJ");
-db.createCollection("cliente");
+db.createCollection("cliente", {
+   validator: {
+      $jsonSchema: {
+         bsonType: "object",
+         required: [ "_id", "nombre", "genero", "identificacion", "edad", "celular", "correo_electronico" ],
+         title: "cliente Validation",
+         properties: {
+            _id: {
+               bsonType: "int",
+               description: "'_id' debe ser un numero positivo",
+               pattern: "^[1-9][0-9]*$"
+            },
+            nombre: {
+               bsonType: "string",
+               description: "'nombre' puede contener letras y numeros pero no caracteres especiales",
+               pattern: "^[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ ]+$",
+               maxLength: 100
+            },
+            genero: {
+               bsonType: "string",
+               description: "'genero' puede contener letras y numeros pero no caracteres especiales",
+               pattern: "^[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ ]+$",
+               maxLength: 20
+            },
+            identificacion: {
+               bsonType: "string",
+               description: "'identificacion' debe ser un string con una secuencia de numeros positivos",
+               pattern: "^[1-9][0-9]*$",
+               maxLength: 20
+            },
+            edad: {
+               bsonType: "string",
+               description: "'edad' debe ser un string con una secuencia de numeros positivos",
+               pattern: "^[1-9][0-9]*$",
+               maxLength: 3
+            },
+            celular: {
+               bsonType: "string",
+               description: "'celular' debe ser un string con una secuencia de numeros positivos",
+               pattern: "^[1-9][0-9]*$",
+               maxLength: 16
+            },
+            correo_electronico: { 
+               bsonType: "string" , 
+               pattern : "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$",
+               description: "'correo_electronico' must be an email of less than 255 characters",
+               maxLength: 150
+           },
+           },
+           additionalProperties: false
+        }
+    },
+    validationAction: "error",
+    validationLevel: "strict"
+});
 
 //🚧🎫Creacion de la coleccion tickets🎫🚧
 
 use("zoologico_Campus_JJ");
-db.createCollection("tickets");
+db.createCollection("tickets", {
+   validator: {
+      $jsonSchema: {
+         bsonType: "object",
+         required: [ "_id", "tipo", "precio" ],
+         title: "tickets Validation",
+         properties: {
+            _id: {
+               bsonType: "int",
+               description: "'_id' debe ser un numero positivo",
+               pattern: "^[1-9][0-9]*$"
+            },
+            tipo: {
+               bsonType: "string",
+               description: "'tipo' puede contener letras y numeros pero no caracteres especiales",
+               pattern: "^[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ ]+$",
+               maxLength: 20
+            },
+            precio: {
+               bsonType: "number",
+               description: "'precio' debe ser un numero positivo",
+               pattern: "^[1-9][0-9]*$"
+            }
+           },
+           additionalProperties: false
+        }
+    },
+    validationAction: "error",
+    validationLevel: "strict"
+});
 
 //🚧👩‍💼Creacion de la coleccion ventas👩‍💼🚧
 
 use("zoologico_Campus_JJ");
-db.createCollection("ventas");
+db.createCollection("ventas", {
+   validator: {
+      $jsonSchema: {
+         bsonType: "object",
+         required: [ "_id", "id_Cliente", "id_Tickets", "descripcion", "valor_Compra" ],
+         title: "ventas Validation",
+         properties: {
+            _id: {
+               bsonType: "int",
+               description: "'_id' debe ser un numero positivo",
+               pattern: "^[1-9][0-9]*$"
+            },
+            id_Cliente: {
+               bsonType: "number",
+               description: "'id_Cliente' debe ser un numero positivo",
+               pattern: "^[1-9][0-9]*$"
+            },
+            id_Tickets: {
+               bsonType: "number",
+               description: "'id_Tickets' debe ser un numero positivo",
+               pattern: "^[1-9][0-9]*$"
+            },
+            descripcion: {
+               bsonType: "string",
+               description: "'descripcion' debe ser un string puede contener numeros y caracteres especiales",
+               pattern: "^[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ ,.\s]+$",
+               maxLength: 250
+            },
+            valor_Compra: {
+               bsonType: "number",
+               description: "'valor_Compra' debe ser un numero positivo",
+               pattern: "^[1-9][0-9]*$"
+            }
+           },
+           additionalProperties: false
+        }
+    },
+    validationAction: "error",
+    validationLevel: "strict"
+});
 
 //🚧⚛️Creacion de la coleccion especialidad⚛️🚧
 
 use("zoologico_Campus_JJ");
-db.createCollection("especialidad");
+db.createCollection("especialidad", {
+   validator: {
+      $jsonSchema: {
+         bsonType: "object",
+         required: [ "_id", "nombre", "descripcion" ],
+         title: "especialidad Validation",
+         properties: {
+            _id: {
+               bsonType: "int",
+               description: "'_id' debe ser un numero positivo",
+               pattern: "^[1-9][0-9]*$"
+            },
+            nombre: {
+               bsonType: "string",
+               description: "'nombre' puede contener letras y numeros pero no caracteres especiales",
+               pattern: "^[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ ]+$",
+               maxLength: 100
+            },
+            descripcion: {
+               bsonType: "string",
+               description: "'descripcion' debe ser un string puede contener numeros y caracteres especiales",
+               pattern: "^[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ ,.\s]+$",
+               maxLength: 250
+            }
+           },
+           additionalProperties: false
+        }
+    },
+    validationAction: "error",
+    validationLevel: "strict"
+});
 
 //🚧👩‍💻Creacion de la coleccion empleado👩‍💻🚧
 
 use("zoologico_Campus_JJ");
-db.createCollection("empleado");
+db.createCollection("empleado", {
+   validator: {
+      $jsonSchema: {
+         bsonType: "object",
+         required: [ "_id", "nombre", "id_Especialidad", "genero", "identificacion", "salario", "edad", "celular", "correo_electronico" ],
+         title: "empleado Validation",
+         properties: {
+            _id: {
+               bsonType: "int",
+               description: "'_id' debe ser un numero positivo",
+               pattern: "^[1-9][0-9]*$"
+            },
+            nombre: {
+               bsonType: "string",
+               description: "'nombre' puede contener letras y numeros pero no caracteres especiales",
+               pattern: "^[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ ]+$",
+               maxLength: 100
+            },
+            id_Especialidad: {
+               bsonType: "int",
+               description: "'id_Especialidad' debe ser un numero positivo",
+               pattern: "^[1-9][0-9]*$"
+            },
+            genero: {
+               bsonType: "string",
+               description: "'genero' puede contener letras y numeros pero no caracteres especiales",
+               pattern: "^[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ ]+$",
+               maxLength: 20
+            },
+            identificacion: {
+               bsonType: "string",
+               description: "'identificacion' debe ser un string con una secuencia de numeros positivos",
+               pattern: "^[1-9][0-9]*$",
+               maxLength: 20
+            },
+            salario: {
+               bsonType: "int",
+               description: "'salario' debe ser un numero positivo",
+               pattern: "^[1-9][0-9]*$"
+            },
+            edad: {
+               bsonType: "string",
+               description: "'edad' debe ser un string con una secuencia de numeros positivos",
+               pattern: "^[1-9][0-9]*$",
+               maxLength: 3
+            },
+            celular: {
+               bsonType: "string",
+               description: "'celular' debe ser un string con una secuencia de numeros positivos",
+               pattern: "^[1-9][0-9]*$",
+               maxLength: 16
+            },
+            correo_electronico: { 
+               bsonType: "string" , 
+               pattern : "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$",
+               description: "'correo_electronico' must be an email of less than 255 characters",
+               maxLength: 150
+           },
+           },
+           additionalProperties: false
+        }
+    },
+    validationAction: "error",
+    validationLevel: "strict"
+});
 
 //🚧🧧Creacion de la coleccion emp_Pago🧧🚧
 
 use("zoologico_Campus_JJ");
-db.createCollection("emp_Pago");
+db.createCollection("emp_Pago", {
+   validator: {
+      $jsonSchema: {
+         bsonType: "object",
+         required: [ "_id", "fecha_Pago", "cantidad", "descripcion", "id_Empleado"],
+         title: "emp_Pago Validation",
+         properties: {
+            _id: {
+               bsonType: "int",
+               description: "'_id' debe ser un numero positivo",
+               pattern: "^[1-9][0-9]*$"
+            },
+            fecha_Pago: {
+               bsonType: "date",
+               description: "'fecha_Pago' debe ser una fecha valida",
+            },
+            cantidad: {
+               bsonType: "int",
+               description: " 'cantidad' debe ser un numero positivo",
+               pattern: "^[1-9][0-9]*$",
+            },
+            descripcion: {
+               bsonType: "string",
+               description: "'descripcion' debe ser un string puede contener numeros y caracteres especiales",
+               pattern: "^[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ ,.\s]+$",
+               maxLength: 250
+            },
+            id_Empleado: {
+               bsonType: "int",
+               description: " 'id_Empleado' debe ser un numero positivo",
+               pattern: "^[1-9][0-9]*$",
+            }
+           },
+           additionalProperties: false
+        }
+    },
+    validationAction: "error",
+    validationLevel: "strict"
+});
 
 //🚧📟Creacion de la coleccion emp_Seguro📟🚧
 
 use("zoologico_Campus_JJ");
-db.createCollection("emp_Seguro");
+db.createCollection("emp_Seguro", {
+   validator: {
+      $jsonSchema: {
+         bsonType: "object",
+         required: [ "_id", "estado", "tipo", "precio", "fecha_Expedicion", "fecha_Expiracion", "id_Empleado"],
+         title: "emp_Pago Validation",
+         properties: {
+            _id: {
+               bsonType: "int",
+               description: "'_id' debe ser un numero positivo",
+               pattern: "^[1-9][0-9]*$"
+            },
+            estado: {
+               bsonType: "string",
+               description: "'estado' puede contener letras y numeros pero no caracteres especiales",
+               pattern: "^[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ ]+$",
+               maxLength: 50
+            },
+            tipo: {
+               bsonType: "string",
+               description: "'tipo' puede contener letras y numeros pero no caracteres especiales",
+               pattern: "^[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ ]+$",
+               maxLength: 50
+            },
+            precio: {
+               bsonType: "int",
+               description: "'precio' debe ser un numero positivo",
+               pattern: "^[1-9][0-9]*$"
+            },
+            fecha_Expedicion: {
+               bsonType: "date",
+               description: "'fecha_Expedicion' debe ser una fecha valida",
+            },
+            fecha_Expiracion: {
+               bsonType: "date",
+               description: "'fecha_Expiracion' debe ser una fecha valida",
+            },
+            id_Empleado: {
+               bsonType: "int",
+               description: " 'id_Empleado' debe ser un numero positivo",
+               pattern: "^[1-9][0-9]*$",
+            }
+           },
+           additionalProperties: false
+        }
+    },
+    validationAction: "error",
+    validationLevel: "strict"
+});
