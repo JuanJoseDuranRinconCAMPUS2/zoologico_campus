@@ -853,3 +853,28 @@ db.createCollection("emp_Seguro", {
     validationAction: "error",
     validationLevel: "strict"
 });
+
+//}🚧🦊Creacion de la coleccion del manejo de autoincrementables🔗🚧
+
+use("zoologico_Campus_JJ");
+db.createCollection("autoincrement");
+db.autoincrement.insertMany([
+    { _id: "alimentoId", sequence_value: 0 },
+    { _id: "animalesId", sequence_value: 0 },
+    { _id: "clienteId", sequence_value: 0 },
+    { _id: "emp_pagoId", sequence_value: 0 },
+    { _id: "emp_seguroId", sequence_value: 0 },
+    { _id: "empleadoId", sequence_value: 0 },
+    { _id: "especialidadId", sequence_value: 0 },
+    { _id: "habitatId", sequence_value: 0 },
+    { _id: "his_alimentoId", sequence_value: 0 },
+    { _id: "his_atencionId", sequence_value: 0 },
+    { _id: "his_exibicionId", sequence_value: 0 },
+    { _id: "his_med_negativoId", sequence_value: 0 },
+    { _id: "his_medicamentoId", sequence_value: 0 },
+    { _id: "inventarioId", sequence_value: 0 },
+    { _id: "medicamentoId", sequence_value: 0 },
+    { _id: "productoId", sequence_value: 0 },
+    { _id: "ticketsId", sequence_value: 0 },
+    { _id: "ventasId", sequence_value: 0 }
+]);
