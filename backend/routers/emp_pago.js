@@ -6,12 +6,21 @@ import { conx } from '../Database/connection.js';
 dotenv.config()
 const emp_pago = Router();
 let db= await conx();
-let collection= db.collection("emp_pago")
+let collection= db.collection("emp_Pago")
+let autoincrement = db.collection("autoincrement");
+async function  increment(coleccion){
+    const sequenceDocument = await autoincrement.findOneAndUpdate(
+        { _id: `${coleccion}Id` },
+        { $inc: { sequence_value: 1 } },
+        { returnDocument: "after" }
+    );
+    return sequenceDocument.value.sequence_value;
+}
 
 emp_pago.get("/",async ( req,res)=>{
     try {
-    let funtion= await collection.find({}).toArray();
-    res.send(funtion)
+        let funtion= await collection.find({}).sort({ _id : 1}).toArray();
+        res.send(funtion)
     } catch (error) {
         res.send(error)
     }
@@ -20,9 +29,10 @@ emp_pago.get("/",async ( req,res)=>{
 
 emp_pago.post('/',async (req,res)=>{
     try{
-        let data=req.body;
+        const id =  await increment("emp_pago");
+        let data= {_id: id, ...req.body, fecha_Pago : new Date(req.body.fecha_Pago)};
         await collection.insertOne(data);
-        res.send(`se ah ingresado la data`)
+        res.send(`se ha ingresado la data`)
     }catch(Error){ 
         res.status(400).send(Error);
     }
@@ -41,14 +51,14 @@ emp_pago.delete('/', async (req,res)=>{
 })
 
 emp_pago.put("/", async (req,res)=>{
-    let actualizaciones ={...req.body,caducidad:new Date(req.body.caducidad)};
+    let actualizaciones ={...req.body, fecha_Pago: new Date(req.body.fecha_Pago)};
     let filter = parseInt(req.query.id, 10)
-try{
-    let working = await collection.updateOne({_id: filter},{$set: actualizaciones});
-    res.send("se ah actualizado la data")  
-} catch (error) {
-    res.send(error);
-}
+    try{
+        let working = await collection.updateOne({_id: filter},{$set: actualizaciones});
+        res.send("se ha actualizado la data")  
+    } catch (error) {
+        res.send(error);
+    }
 })
 
 export default emp_pago;
