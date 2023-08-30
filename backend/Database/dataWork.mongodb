@@ -5,9 +5,17 @@ use("zoologico_Campus_JJ");
 //🚧⛩️Inyeccion de data a la coleccion habitat⛩️🚧
 
 use("zoologico_Campus_JJ");
+function increment(coleccion) {
+  const sequenceDocument = db.autoincrement.findOneAndUpdate(
+      { _id: `${coleccion}Id` },
+      { $inc: { sequence_value: 1 } },
+      { returnDocument: "after" }
+  );
+  return sequenceDocument.sequence_value;
+}
 db.habitat.insertMany([
     {
-      _id: 1,
+      _id: Number(increment("habitat")),
       nombre: "Hábitat Tropical",
       dimensiones: "100m2",
       limite_Especimenes: 20,
@@ -16,7 +24,7 @@ db.habitat.insertMany([
       descripcion: "Un entorno tropical con abundante vegetación y agua"
     },
     {
-      _id: 2,
+      _id: Number(increment("habitat")),
       nombre: "Hábitat Desértico",
       dimensiones: "80m2",
       limite_Especimenes: 15,
@@ -25,7 +33,7 @@ db.habitat.insertMany([
       descripcion: "Un entorno seco con cactus y arena"
     },
     {
-      _id: 3,
+      _id: Number(increment("habitat")),
       nombre: "Hábitat Acuático",
       dimensiones: "120m2",
       limite_Especimenes: 30,
@@ -34,7 +42,7 @@ db.habitat.insertMany([
       descripcion: "Un entorno acuático con peces y plantas acuáticas"
     },
     {
-      _id: 4,
+      _id: Number(increment("habitat")),
       nombre: "Hábitat Boscoso",
       dimensiones: "150m2",
       limite_Especimenes: 25,
@@ -43,7 +51,7 @@ db.habitat.insertMany([
       descripcion: "Un entorno boscoso con árboles altos y sombra"
     },
     {
-      _id: 5,
+      _id: Number(increment("habitat")),
       nombre: "Hábitat Polar",
       dimensiones: "200m2",
       limite_Especimenes: 10,
@@ -52,7 +60,7 @@ db.habitat.insertMany([
       descripcion: "Un entorno frío con hielo y pinguinos"
     },
     {
-      _id: 6,
+      _id: Number(increment("habitat")),
       nombre: "Hábitat de Sabana",
       dimensiones: "180m2",
       limite_Especimenes: 18,
@@ -61,7 +69,7 @@ db.habitat.insertMany([
       descripcion: "Un entorno amplio con hierba y pocos árboles"
     },
     {
-      _id: 7,
+      _id: Number(increment("habitat")),
       nombre: "Hábitat de Montaña",
       dimensiones: "90m2",
       limite_Especimenes: 12,
@@ -70,7 +78,7 @@ db.habitat.insertMany([
       descripcion: "Un entorno en altura con rocas y vistas panorámicas"
     },
     {
-      _id: 8,
+      _id: Number(increment("habitat")),
       nombre: "Hábitat Subterráneo",
       dimensiones: "70m2",
       limite_Especimenes: 10,
@@ -79,7 +87,7 @@ db.habitat.insertMany([
       descripcion: "Un entorno oscuro bajo tierra con túneles y cuevas"
     },
     {
-      _id: 9,
+      _id: Number(increment("habitat")),
       nombre: "Hábitat Aéreo",
       dimensiones: "50m2",
       limite_Especimenes: 8,
@@ -88,7 +96,7 @@ db.habitat.insertMany([
       descripcion: "Un entorno elevado con ramas y nidos"
     },
     {
-      _id: 10,
+      _id: Number(increment("habitat")),
       nombre: "Hábitat de Pantano",
       dimensiones: "110m2",
       limite_Especimenes: 22,
@@ -101,9 +109,17 @@ db.habitat.insertMany([
 //🚧🦊Inyeccion de data a la coleccion animales🦊🚧
 
 use("zoologico_Campus_JJ");
+function increment(coleccion) {
+  const sequenceDocument = db.autoincrement.findOneAndUpdate(
+      { _id: `${coleccion}Id` },
+      { $inc: { sequence_value: 1 } },
+      { returnDocument: "after" }
+  );
+  return sequenceDocument.sequence_value;
+}
 db.animales.insertMany([
     {
-      _id: 1,
+      _id: Number(increment("animales")),
       nombre: "León",
       especie: "Panthera leo",
       dieta: "Carnívora",
@@ -111,7 +127,7 @@ db.animales.insertMany([
       id_Habitat: 1  // Hábitat Tropical
     },
     {
-      _id: 2,
+      _id: Number(increment("animales")),
       nombre: "Elefante",
       especie: "Loxodonta africana",
       dieta: "Herbívora",
@@ -119,7 +135,7 @@ db.animales.insertMany([
       id_Habitat: 6  // Hábitat de Sabana
     },
     {
-      _id: 3,
+      _id: Number(increment("animales")),
       nombre: "Tigre",
       especie: "Panthera tigris",
       dieta: "Carnívora",
@@ -127,7 +143,7 @@ db.animales.insertMany([
       id_Habitat: 4  // Hábitat Boscoso
     },
     {
-      _id: 4,
+      _id: Number(increment("animales")),
       nombre: "Oso Polar",
       especie: "Ursus maritimus",
       dieta: "Carnívora",
@@ -135,7 +151,7 @@ db.animales.insertMany([
       id_Habitat: 5  // Hábitat Polar
     },
     {
-      _id: 5,
+      _id: Number(increment("animales")),
       nombre: "Cebra",
       especie: "Equus zebra",
       dieta: "Herbívora",
@@ -143,7 +159,7 @@ db.animales.insertMany([
       id_Habitat: 6  // Hábitat de Sabana
     },
     {
-      _id: 6,
+      _id: Number(increment("animales")),
       nombre: "Pinguino Emperador",
       especie: "Aptenodytes forsteri",
       dieta: "Carnívora",
@@ -151,7 +167,7 @@ db.animales.insertMany([
       id_Habitat: 8  // Hábitat Subterráneo
     },
     {
-      _id: 7,
+      _id: Number(increment("animales")),
       nombre: "Jirafa",
       especie: "Giraffa camelopardalis",
       dieta: "Herbívora",
@@ -159,7 +175,7 @@ db.animales.insertMany([
       id_Habitat: 6  // Hábitat de Sabana
     },
     {
-      _id: 8,
+      _id: Number(increment("animales")),
       nombre: "Lobo Gris",
       especie: "Canis lupus",
       dieta: "Carnívora",
@@ -167,7 +183,7 @@ db.animales.insertMany([
       id_Habitat: 4  // Hábitat Boscoso
     },
     {
-      _id: 9,
+      _id: Number(increment("animales")),
       nombre: "Hipopótamo",
       especie: "Hippopotamus amphibius",
       dieta: "Herbívora",
@@ -175,7 +191,7 @@ db.animales.insertMany([
       id_Habitat: 2  // Hábitat Acuático
     },
     {
-      _id: 10,
+      _id: Number(increment("animales")),
       nombre: "Panda Gigante",
       especie: "Ailuropoda melanoleuca",
       dieta: "Herbívora",
@@ -187,9 +203,17 @@ db.animales.insertMany([
 //🚧🌰Inyeccion de data a la coleccion alimento🌰🚧
 
 use("zoologico_Campus_JJ");
+function increment(coleccion) {
+  const sequenceDocument = db.autoincrement.findOneAndUpdate(
+      { _id: `${coleccion}Id` },
+      { $inc: { sequence_value: 1 } },
+      { returnDocument: "after" }
+  );
+  return sequenceDocument.sequence_value;
+}
 db.alimento.insertMany([
     {
-      _id: 1,
+      _id: Number(increment("alimento")),
       nombre: "Carne de Res",
       descripcion: "Carne de res magra y fresca",
       caducidad: new Date("2023-12-31"),
@@ -198,7 +222,7 @@ db.alimento.insertMany([
       precio_kg: 15
     },
     {
-      _id: 2,
+      _id: Number(increment("alimento")),
       nombre: "Frutas Variadas",
       descripcion: "Variedad de frutas frescas y maduras",
       caducidad: new Date("2023-09-30"),
@@ -207,7 +231,7 @@ db.alimento.insertMany([
       precio_kg: 10
     },
     {
-      _id: 3,
+      _id: Number(increment("alimento")),
       nombre: "Pescado Fresco",
       descripcion: "Pescado recién capturado del mar",
       caducidad: new Date("2023-08-31"),
@@ -216,7 +240,7 @@ db.alimento.insertMany([
       precio_kg: 18
     },
     {
-      _id: 4,
+      _id: Number(increment("alimento")),
       nombre: "Insectos",
       descripcion: "Variedad de insectos vivos",
       caducidad: new Date("2023-10-15"),
@@ -225,7 +249,7 @@ db.alimento.insertMany([
       precio_kg: 5
     },
     {
-      _id: 5,
+      _id: Number(increment("alimento")),
       nombre: "Plantas Acuáticas",
       descripcion: "Diversas plantas acuáticas para animales herbívoros acuáticos",
       caducidad: new Date("2023-11-30"),
@@ -234,7 +258,7 @@ db.alimento.insertMany([
       precio_kg: 8
     },
     {
-      _id: 6,
+      _id: Number(increment("alimento")),
       nombre: "Aves de Corral",
       descripcion: "Carne de pollo y otras aves",
       caducidad: new Date("2023-09-15"),
@@ -243,7 +267,7 @@ db.alimento.insertMany([
       precio_kg: 12
     },
     {
-      _id: 7,
+      _id: Number(increment("alimento")),
       nombre: "Hoja de Bambú",
       descripcion: "Hojas frescas de bambú",
       caducidad: new Date("2023-12-15"),
@@ -252,7 +276,7 @@ db.alimento.insertMany([
       precio_kg: 7
     },
     {
-      _id: 8,
+      _id: Number(increment("alimento")),
       nombre: "Carne de Caza",
       descripcion: "Carne de caza magra y natural",
       caducidad: new Date("2023-11-15"),
@@ -261,7 +285,7 @@ db.alimento.insertMany([
       precio_kg: 20
     },
     {
-      _id: 9,
+      _id: Number(increment("alimento")),
       nombre: "Ratones Vivos",
       descripcion: "Ratones vivos para alimentar a animales carnívoros",
       caducidad: new Date("2023-08-31"),
@@ -270,7 +294,7 @@ db.alimento.insertMany([
       precio_kg: 25
     },
     {
-      _id: 10,
+      _id: Number(increment("alimento")),
       nombre: "Verduras Variadas",
       descripcion: "Variedad de verduras frescas",
       caducidad: new Date("2023-09-30"),
@@ -283,63 +307,71 @@ db.alimento.insertMany([
 //🚧💊Inyeccion de data a la coleccion medicamento💊🚧}
 
 use("zoologico_Campus_JJ");
+function increment(coleccion) {
+  const sequenceDocument = db.autoincrement.findOneAndUpdate(
+      { _id: `${coleccion}Id` },
+      { $inc: { sequence_value: 1 } },
+      { returnDocument: "after" }
+  );
+  return sequenceDocument.sequence_value;
+}
 db.medicamento.insertMany([
     {
-      _id: 1,
+      _id: Number(increment("medicamento")),
       nombre: "Analgésico",
       caducidad: new Date("2024-12-31"),
       descripcion: "Medicamento para aliviar el dolor moderado."
     },
     {
-      _id: 2,
+      _id: Number(increment("medicamento")),
       nombre: "Antibiótico",
       caducidad: new Date("2024-10-15"),
       descripcion: "Medicamento para tratar infecciones bacterianas."
     },
     {
-      _id: 3,
+      _id: Number(increment("medicamento")),
       nombre: "Antiinflamatorio",
       caducidad: new Date("2024-11-30"),
       descripcion: "Medicamento para reducir la inflamación y el dolor."
     },
     {
-      _id: 4,
+      _id: Number(increment("medicamento")),
       nombre: "Antipirético",
       caducidad: new Date("2024-09-30"),
       descripcion: "Medicamento para reducir la fiebre."
     },
     {
-      _id: 5,
+      _id: Number(increment("medicamento")),
       nombre: "Desparasitante",
       caducidad: new Date("2024-08-31"),
       descripcion: "Medicamento para eliminar parásitos internos y externos."
     },
     {
-      _id: 6,
+      _id: Number(increment("medicamento")),
       nombre: "Vitamina C",
       caducidad: new Date("2024-07-31"),
       descripcion: "Suplemento de vitamina C para mejorar el sistema inmunológico."
     },
     {
-      _id: 7,
+      _id: Number(increment("medicamento")),
       nombre: "Antiulceroso",
       caducidad: new Date("2024-06-30"),
       descripcion: "Medicamento para tratar úlceras gástricas."
     },
     {
-      _id: 8,
+      _id: Number(increment("medicamento")),
       nombre: "Antihistamínico",
       caducidad: new Date("2024-05-31"),
       descripcion: "Medicamento para aliviar alergias y síntomas de histamina."
     },
     {
-      _id: 9,
+      _id: Number(increment("medicamento")),
       nombre: "Ansiolítico",
       caducidad: new Date("2024-04-30"),
       descripcion: "Medicamento para tratar la ansiedad y el estrés."
     },
     {
-      _id: 10,
+      _id: Number(increment("medicamento")),
       nombre: "Expectorante",
       caducidad: new Date("2024-03-31"),
       descripcion: "Medicamento para facilitar la eliminación de mucosidad."
@@ -349,9 +381,17 @@ db.medicamento.insertMany([
 //🚧🍽️Inyeccion de data a la coleccion his_Alimento🍽️🚧
 
 use("zoologico_Campus_JJ");
+function increment(coleccion) {
+  const sequenceDocument = db.autoincrement.findOneAndUpdate(
+      { _id: `${coleccion}Id` },
+      { $inc: { sequence_value: 1 } },
+      { returnDocument: "after" }
+  );
+  return sequenceDocument.sequence_value;
+}
 db.his_Alimento.insertMany([
     {
-      _id: 1,
+      _id: Number(increment("his_alimento")),
       fecha_Suministro: new Date("2023-08-01"),
       alimento: "Carne de Res",
       descripcion: "Suministro de carne de res magra",
@@ -359,7 +399,7 @@ db.his_Alimento.insertMany([
       id_Alimento: 1  // Carne de Res
     },
     {
-      _id: 2,
+      _id: Number(increment("his_alimento")),
       fecha_Suministro: new Date("2023-08-02"),
       alimento: "Frutas Variadas",
       descripcion: "Suministro de frutas frescas y maduras",
@@ -367,7 +407,7 @@ db.his_Alimento.insertMany([
       id_Alimento: 2  // Frutas Variadas
     },
     {
-      _id: 3,
+      _id: Number(increment("his_alimento")),
       fecha_Suministro: new Date("2023-08-03"),
       alimento: "Carne de Res",
       descripcion: "Suministro de carne de res magra",
@@ -375,7 +415,7 @@ db.his_Alimento.insertMany([
       id_Alimento: 1  // Carne de Res
     },
     {
-      _id: 4,
+      _id: Number(increment("his_alimento")),
       fecha_Suministro: new Date("2023-08-04"),
       alimento: "Pescado Fresco",
       descripcion: "Suministro de pescado recién capturado",
@@ -383,7 +423,7 @@ db.his_Alimento.insertMany([
       id_Alimento: 3  // Pescado Fresco
     },
     {
-      _id: 5,
+      _id: Number(increment("his_alimento")),
       fecha_Suministro: new Date("2023-08-05"),
       alimento: "Verduras Variadas",
       descripcion: "Suministro de verduras frescas",
@@ -391,7 +431,7 @@ db.his_Alimento.insertMany([
       id_Alimento: 10  // Verduras Variadas
     },
     {
-      _id: 6,
+      _id: Number(increment("his_alimento")),
       fecha_Suministro: new Date("2023-08-06"),
       alimento: "Pescado Fresco",
       descripcion: "Suministro de pescado recién capturado",
@@ -399,7 +439,7 @@ db.his_Alimento.insertMany([
       id_Alimento: 3  // Pescado Fresco
     },
     {
-      _id: 7,
+      _id: Number(increment("his_alimento")),
       fecha_Suministro: new Date("2023-08-07"),
       alimento: "Hoja de Bambú",
       descripcion: "Suministro de hojas frescas de bambú",
@@ -407,7 +447,7 @@ db.his_Alimento.insertMany([
       id_Alimento: 7  // Hoja de Bambú
     },
     {
-      _id: 8,
+      _id: Number(increment("his_alimento")),
       fecha_Suministro: new Date("2023-08-08"),
       alimento: "Carne de Caza",
       descripcion: "Suministro de carne de caza",
@@ -415,7 +455,7 @@ db.his_Alimento.insertMany([
       id_Alimento: 8  // Carne de Caza
     },
     {
-      _id: 9,
+      _id: Number(increment("his_alimento")),
       fecha_Suministro: new Date("2023-08-09"),
       alimento: "Ratones Vivos",
       descripcion: "Suministro de ratones vivos",
@@ -423,7 +463,7 @@ db.his_Alimento.insertMany([
       id_Alimento: 9  // Ratones Vivos
     },
     {
-      _id: 10,
+      _id: Number(increment("his_alimento")),
       fecha_Suministro: new Date("2023-08-10"),
       alimento: "Verduras Variadas",
       descripcion: "Suministro de verduras frescas",
@@ -435,72 +475,80 @@ db.his_Alimento.insertMany([
 //🚧🐰Inyeccion de data a la coleccion his_Exhibicion🐰🚧
 
 use("zoologico_Campus_JJ");
+function increment(coleccion) {
+  const sequenceDocument = db.autoincrement.findOneAndUpdate(
+      { _id: `${coleccion}Id` },
+      { $inc: { sequence_value: 1 } },
+      { returnDocument: "after" }
+  );
+  return sequenceDocument.sequence_value;
+}
 db.his_Exhibicion.insertMany([
     {
-      _id: 1,
+      _id: Number(increment("his_exibicion")),
       fecha_Inicio: new Date("2023-08-01"),
       fecha_Fin: new Date("2023-08-05"),
       id_Animal: 1,  // León
       descripcion: "Exhibición de leones en su hábitat natural."
     },
     {
-      _id: 2,
+      _id: Number(increment("his_exibicion")),
       fecha_Inicio: new Date("2023-08-03"),
       fecha_Fin: new Date("2023-08-08"),
       id_Animal: 2,  // Elefante
       descripcion: "Exhibición de elefantes en su área de juego."
     },
     {
-      _id: 3,
+      _id: Number(increment("his_exibicion")),
       fecha_Inicio: new Date("2023-08-07"),
       fecha_Fin: new Date("2023-08-10"),
       id_Animal: 3,  // Tigre
       descripcion: "Exhibición de tigres realizando saltos y acrobacias."
     },
     {
-      _id: 4,
+      _id: Number(increment("his_exibicion")),
       fecha_Inicio: new Date("2023-08-09"),
       fecha_Fin: new Date("2023-08-12"),
       id_Animal: 4,  // Oso Polar
       descripcion: "Exhibición de osos polares nadando en su piscina."
     },
     {
-      _id: 5,
+      _id: Number(increment("his_exibicion")),
       fecha_Inicio: new Date("2023-08-11"),
       fecha_Fin: new Date("2023-08-15"),
       id_Animal: 5,  // Cebra
       descripcion: "Exhibición de cebras pastando en su pradera."
     },
     {
-      _id: 6,
+      _id: Number(increment("his_exibicion")),
       fecha_Inicio: new Date("2023-08-13"),
       fecha_Fin: new Date("2023-08-18"),
       id_Animal: 6,  // Pingüino Emperador
       descripcion: "Exhibición de pinguinos emperadores en su hábitat gélido."
     },
     {
-      _id: 7,
+      _id: Number(increment("his_exibicion")),
       fecha_Inicio: new Date("2023-08-15"),
       fecha_Fin: new Date("2023-08-20"),
       id_Animal: 7,  // Jirafa
       descripcion: "Exhibición de jirafas alimentándose de hojas altas."
     },
     {
-      _id: 8,
+      _id: Number(increment("his_exibicion")),
       fecha_Inicio: new Date("2023-08-17"),
       fecha_Fin: new Date("2023-08-22"),
       id_Animal: 8,  // Lobo Gris
       descripcion: "Exhibición de lobos grises aullando en coro."
     },
     {
-      _id: 9,
+      _id: Number(increment("his_exibicion")),
       fecha_Inicio: new Date("2023-08-19"),
       fecha_Fin: new Date("2023-08-24"),
       id_Animal: 9,  // Hipopótamo
       descripcion: "Exhibición de hipopótamos nadando en su estanque."
     },
     {
-      _id: 10,
+      _id: Number(increment("his_exibicion")),
       fecha_Inicio: new Date("2023-08-21"),
       fecha_Fin: new Date("2023-08-26"),
       id_Animal: 10,  // Panda Gigante
@@ -511,72 +559,80 @@ db.his_Exhibicion.insertMany([
 //🚧🚨Inyeccion de data a la coleccion his_Atencion🚨🚧
 
 use("zoologico_Campus_JJ");
+function increment(coleccion) {
+  const sequenceDocument = db.autoincrement.findOneAndUpdate(
+      { _id: `${coleccion}Id` },
+      { $inc: { sequence_value: 1 } },
+      { returnDocument: "after" }
+  );
+  return sequenceDocument.sequence_value;
+}
 db.his_Atencion.insertMany([
     {
-      _id: 1,
+      _id: Number(increment("his_atencion")),
       tipo_Atencion: "Cuidados Médicos",
       medicamento: "Antiinflamatorio",
       descripcion: "Aplicación de antiinflamatorio para tratar una lesión",
       id_Animal: 1  // León
     },
     {
-      _id: 2,
+      _id: Number(increment("his_atencion")),
       tipo_Atencion: "Examen de Salud",
       medicamento: "Vitaminas",
       descripcion: "Suministro de vitaminas para mejorar la salud general",
       id_Animal: 2  // Elefante
     },
     {
-      _id: 3,
+      _id: Number(increment("his_atencion")),
       tipo_Atencion: "Tratamiento",
       medicamento: "Analgésico",
       descripcion: "Dosis de analgésico para aliviar el dolor",
       id_Animal: 3  // Tigre
     },
     {
-      _id: 4,
+      _id: Number(increment("his_atencion")),
       tipo_Atencion: "Cuidados Especiales",
       medicamento: "Antibiótico",
       descripcion: "Tratamiento con antibiótico para una infección",
       id_Animal: 4  // Oso Polar
     },
     {
-      _id: 5,
+      _id: Number(increment("his_atencion")),
       tipo_Atencion: "Control de Dieta",
       medicamento: "Suplemento Nutricional",
       descripcion: "Suplemento para mejorar la dieta del animal",
       id_Animal: 5  // Cebra
     },
     {
-      _id: 6,
+      _id: Number(increment("his_atencion")),
       tipo_Atencion: "Rehabilitación",
       medicamento: "Antiinflamatorio",
       descripcion: "Terapia de rehabilitación con antiinflamatorios",
       id_Animal: 6  // Pingüino Emperador
     },
     {
-      _id: 7,
+      _id: Number(increment("his_atencion")),
       tipo_Atencion: "Examen Veterinario",
       medicamento: "Vitaminas",
       descripcion: "Suministro de vitaminas durante el examen",
       id_Animal: 7  // Jirafa
     },
     {
-      _id: 8,
+      _id: Number(increment("his_atencion")),
       tipo_Atencion: "Tratamiento de Heridas",
       medicamento: "Antibiótico",
       descripcion: "Aplicación de antibiótico en una herida",
       id_Animal: 8  // Lobo Gris
     },
     {
-      _id: 9,
+      _id: Number(increment("his_atencion")),
       tipo_Atencion: "Control de Salud",
       medicamento: "Antiparasitario",
       descripcion: "Desparasitación y control de salud",
       id_Animal: 9  // Hipopótamo
     },
     {
-      _id: 10,
+      _id: Number(increment("his_atencion")),
       tipo_Atencion: "Atención General",
       medicamento: "Vitaminas",
       descripcion: "Suministro de vitaminas para el bienestar",
@@ -587,9 +643,17 @@ db.his_Atencion.insertMany([
 //🚧🥼Inyeccion de data a la coleccion his_Medicamento🥼🚧
 
 use("zoologico_Campus_JJ");
+function increment(coleccion) {
+  const sequenceDocument = db.autoincrement.findOneAndUpdate(
+      { _id: `${coleccion}Id` },
+      { $inc: { sequence_value: 1 } },
+      { returnDocument: "after" }
+  );
+  return sequenceDocument.sequence_value;
+}
 db.his_Medicamento.insertMany([
     {
-      _id: 1,
+      _id: Number(increment("his_medicamento")),
       fecha_Suministro: new Date("2023-08-01"),
       id_Medicamento: 1,  // Analgésico
       id_Animal: 1,  // León
@@ -597,7 +661,7 @@ db.his_Medicamento.insertMany([
       descripcion: "Suministro de analgésico para aliviar el dolor"
     },
     {
-      _id: 2,
+      _id: Number(increment("his_medicamento")),
       fecha_Suministro: new Date("2023-08-03"),
       id_Medicamento: 2,  // Vitaminas
       id_Animal: 2,  // Elefante
@@ -605,7 +669,7 @@ db.his_Medicamento.insertMany([
       descripcion: "Suministro de vitaminas como suplemento"
     },
     {
-      _id: 3,
+      _id: Number(increment("his_medicamento")),
       fecha_Suministro: new Date("2023-08-07"),
       id_Medicamento: 3,  // Antibiótico
       id_Animal: 3,  // Tigre
@@ -613,7 +677,7 @@ db.his_Medicamento.insertMany([
       descripcion: "Tratamiento con antibiótico para infección"
     },
     {
-      _id: 4,
+      _id: Number(increment("his_medicamento")),
       fecha_Suministro: new Date("2023-08-09"),
       id_Medicamento: 4,  // Antiparasitario
       id_Animal: 4,  // Oso Polar
@@ -621,7 +685,7 @@ db.his_Medicamento.insertMany([
       descripcion: "Desparasitación y control de salud"
     },
     {
-      _id: 5,
+      _id: Number(increment("his_medicamento")),
       fecha_Suministro: new Date("2023-08-11"),
       id_Medicamento: 5,  // Antiinflamatorio
       id_Animal: 5,  // Cebra
@@ -629,7 +693,7 @@ db.his_Medicamento.insertMany([
       descripcion: "Aplicación de antiinflamatorio para lesión"
     },
     {
-      _id: 6,
+      _id: Number(increment("his_medicamento")),
       fecha_Suministro: new Date("2023-08-13"),
       id_Medicamento: 1,  // Analgésico
       id_Animal: 6,  // Pingüino Emperador
@@ -637,7 +701,7 @@ db.his_Medicamento.insertMany([
       descripcion: "Suministro de analgésico para tratamiento"
     },
     {
-      _id: 7,
+      _id: Number(increment("his_medicamento")),
       fecha_Suministro: new Date("2023-08-15"),
       id_Medicamento: 2,  // Vitaminas
       id_Animal: 7,  // Jirafa
@@ -645,7 +709,7 @@ db.his_Medicamento.insertMany([
       descripcion: "Suministro de vitaminas como parte del cuidado"
     },
     {
-      _id: 8,
+      _id: Number(increment("his_medicamento")),
       fecha_Suministro: new Date("2023-08-17"),
       id_Medicamento: 3,  // Antibiótico
       id_Animal: 8,  // Lobo Gris
@@ -653,7 +717,7 @@ db.his_Medicamento.insertMany([
       descripcion: "Tratamiento con antibiótico para herida"
     },
     {
-      _id: 9,
+      _id: Number(increment("his_medicamento")),
       fecha_Suministro: new Date("2023-08-19"),
       id_Medicamento: 4,  // Antiparasitario
       id_Animal: 9,  // Hipopótamo
@@ -661,7 +725,7 @@ db.his_Medicamento.insertMany([
       descripcion: "Desparasitación y control de salud"
     },
     {
-      _id: 10,
+      _id: Number(increment("his_medicamento")),
       fecha_Suministro: new Date("2023-08-21"),
       id_Medicamento: 5,  // Antiinflamatorio
       id_Animal: 10,  // Panda Gigante
@@ -673,63 +737,71 @@ db.his_Medicamento.insertMany([
 //🚧💥Inyeccion de data a la coleccion his_Med_Negativo💥🚧
 
 use("zoologico_Campus_JJ");
+function increment(coleccion) {
+  const sequenceDocument = db.autoincrement.findOneAndUpdate(
+      { _id: `${coleccion}Id` },
+      { $inc: { sequence_value: 1 } },
+      { returnDocument: "after" }
+  );
+  return sequenceDocument.sequence_value;
+}
 db.his_Med_Negativo.insertMany([
     {
-      _id: 1,
+      _id: Number(increment("his_med_negativo")),
       id_medicamento: 1,  // Analgésico
       descripcion: "Reacción adversa al analgésico en el león",
       id_Animal: 1  // León
     },
     {
-      _id: 2,
+      _id: Number(increment("his_med_negativo")),
       id_medicamento: 2,  // Vitaminas
       descripcion: "Efectos secundarios de las vitaminas en el elefante",
       id_Animal: 2  // Elefante
     },
     {
-      _id: 3,
+      _id: Number(increment("his_med_negativo")),
       id_medicamento: 3,  // Antibiótico
       descripcion: "Reacción alérgica al antibiótico en el tigre",
       id_Animal: 3  // Tigre
     },
     {
-      _id: 4,
+      _id: Number(increment("his_med_negativo")),
       id_medicamento: 4,  // Antiparasitario
       descripcion: "Intolerancia al antiparasitario en el oso polar",
       id_Animal: 4  // Oso Polar
     },
     {
-      _id: 5,
+      _id: Number(increment("his_med_negativo")),
       id_medicamento: 5,  // Antiinflamatorio
       descripcion: "Malestar después del antiinflamatorio en la cebra",
       id_Animal: 5  // Cebra
     },
     {
-      _id: 6,
+      _id: Number(increment("his_med_negativo")),
       id_medicamento: 1,  // Analgésico
       descripcion: "Reacción adversa al analgésico en el pinguino emperador",
       id_Animal: 6  // Pingüino Emperador
     },
     {
-      _id: 7,
+      _id: Number(increment("his_med_negativo")),
       id_medicamento: 2,  // Vitaminas
       descripcion: "Efectos secundarios de las vitaminas en la jirafa",
       id_Animal: 7  // Jirafa
     },
     {
-      _id: 8,
+      _id: Number(increment("his_med_negativo")),
       id_medicamento: 3,  // Antibiótico
       descripcion: "Reacción alérgica al antibiótico en el lobo gris",
       id_Animal: 8  // Lobo Gris
     },
     {
-      _id: 9,
+      _id: Number(increment("his_med_negativo")),
       id_medicamento: 4,  // Antiparasitario
       descripcion: "Intolerancia al antiparasitario en el hipopótamo",
       id_Animal: 9  // Hipopótamo
     },
     {
-      _id: 10,
+      _id: Number(increment("his_med_negativo")),
       id_medicamento: 5,  // Antiinflamatorio
       descripcion: "Malestar después del antiinflamatorio en el panda gigante",
       id_Animal: 10  // Panda Gigante
@@ -739,72 +811,80 @@ db.his_Med_Negativo.insertMany([
 //🚧🔗Inyeccion de data a la coleccion producto🔗🚧
 
 use("zoologico_Campus_JJ");
+function increment(coleccion) {
+  const sequenceDocument = db.autoincrement.findOneAndUpdate(
+      { _id: `${coleccion}Id` },
+      { $inc: { sequence_value: 1 } },
+      { returnDocument: "after" }
+  );
+  return sequenceDocument.sequence_value;
+}
 db.producto.insertMany([
     {
-      _id: 1,
+      _id: Number(increment("producto")),
       nombre: "Souvenir de Elefante",
       descripcion: "Recuerdo en forma de elefante de peluche",
       precio: 20000,
       caducidad: null
     },
     {
-      _id: 2,
+      _id: Number(increment("producto")),
       nombre: "Gorra de Tigre",
       descripcion: "Gorra con diseño de tigre para los visitantes",
       precio: 15000,
       caducidad: null
     },
     {
-      _id: 3,
+      _id: Number(increment("producto")),
       nombre: "Kit de Explorador",
       descripcion: "Kit con binoculares, brújula y cuaderno de campo",
       precio: 30000,
       caducidad: null
     },
     {
-      _id: 4,
+      _id: Number(increment("producto")),
       nombre: "Figura de León",
       descripcion: "Figura de león esculpida a mano",
       precio: 400000,
       caducidad: null
     },
     {
-      _id: 5,
+      _id: Number(increment("producto")),
       nombre: "Libro de Animales",
       descripcion: "Libro ilustrado con información sobre animales del zoológico",
       precio: 25000,
       caducidad: null
     },
     {
-      _id: 6,
+      _id: Number(increment("producto")),
       nombre: "Taza de Pinguino",
       descripcion: "Taza con diseño de pinguino para tomar café o té",
       precio: 20000,
       caducidad: null
     },
     {
-      _id: 7,
+      _id: Number(increment("producto")),
       nombre: "Puzzle de Jirafa",
       descripcion: "Puzzle de 1000 piezas con imagen de jirafa",
       precio: 18000,
       caducidad: null
     },
     {
-      _id: 8,
+      _id: Number(increment("producto")),
       nombre: "galletas de panda",
       descripcion: "galletas en forma de panda",
       precio: 4000,
       caducidad: new Date("2023-08-01")
     },
     {
-      _id: 9,
+      _id: Number(increment("producto")),
       nombre: "Peluche de Panda Gigante",
       descripcion: "Peluche suave de panda gigante",
       precio: 300000,
       caducidad: null
     },
     {
-      _id: 10,
+      _id: Number(increment("producto")),
       nombre: "Mapa del Zoológico",
       descripcion: "Mapa detallado con rutas y ubicaciones de animales",
       precio: 5000,
@@ -815,72 +895,80 @@ db.producto.insertMany([
 //🚧🧨Inyeccion de data a la coleccion inventario🧨🚧
 
 use("zoologico_Campus_JJ");
+function increment(coleccion) {
+  const sequenceDocument = db.autoincrement.findOneAndUpdate(
+      { _id: `${coleccion}Id` },
+      { $inc: { sequence_value: 1 } },
+      { returnDocument: "after" }
+  );
+  return sequenceDocument.sequence_value;
+}
 db.inventario.insertMany([
     {
-      _id: 1,
+      _id: Number(increment("inventario")),
       cantidad: 100,
       fecha_Ingreso: new Date("2023-08-01"),
       descripcion: "Inventario inicial de souvenirs de elefante",
       id_Producto: 1
     },
     {
-      _id: 2,
+      _id: Number(increment("inventario")),
       cantidad: 50,
       fecha_Ingreso: new Date("2023-08-02"),
       descripcion: "Inventario inicial de gorras de tigre",
       id_Producto: 2
     },
     {
-      _id: 3,
+      _id: Number(increment("inventario")),
       cantidad: 30,
       fecha_Ingreso: new Date("2023-08-03"),
       descripcion: "Inventario inicial de kits de explorador",
       id_Producto: 3
     },
     {
-      _id: 4,
+      _id: Number(increment("inventario")),
       cantidad: 40,
       fecha_Ingreso: new Date("2023-08-04"),
       descripcion: "Inventario inicial de figuras de león",
       id_Producto: 4
     },
     {
-      _id: 5,
+      _id: Number(increment("inventario")),
       cantidad: 75,
       fecha_Ingreso: new Date("2023-08-05"),
       descripcion: "Inventario inicial de libros de animales",
       id_Producto: 5
     },
     {
-      _id: 6,
+      _id: Number(increment("inventario")),
       cantidad: 60,
       fecha_Ingreso: new Date("2023-08-06"),
       descripcion: "Inventario inicial de tazas de pinguino",
       id_Producto: 6
     },
     {
-      _id: 7,
+      _id: Number(increment("inventario")),
       cantidad: 25,
       fecha_Ingreso: new Date("2023-08-07"),
       descripcion: "Inventario inicial de puzzles de jirafa",
       id_Producto: 7
     },
     {
-      _id: 8,
+      _id: Number(increment("inventario")),
       cantidad: 10,
       fecha_Ingreso: new Date("2023-08-08"),
       descripcion: "Inventario inicial de galletas de panda",
       id_Producto: 8
     },
     {
-      _id: 9,
+      _id: Number(increment("inventario")),
       cantidad: 50,
       fecha_Ingreso: new Date("2023-08-09"),
       descripcion: "Inventario inicial de peluches de panda gigante",
       id_Producto: 9
     },
     {
-      _id: 10,
+      _id: Number(increment("inventario")),
       cantidad: 100,
       fecha_Ingreso: new Date("2023-08-10"),
       descripcion: "Inventario inicial de mapas del zoológico",
@@ -891,9 +979,17 @@ db.inventario.insertMany([
 //🚧🧑‍🦰Inyeccion de data a la coleccion cliente🧑‍🦰🚧
 
 use("zoologico_Campus_JJ");
+function increment(coleccion) {
+  const sequenceDocument = db.autoincrement.findOneAndUpdate(
+      { _id: `${coleccion}Id` },
+      { $inc: { sequence_value: 1 } },
+      { returnDocument: "after" }
+  );
+  return sequenceDocument.sequence_value;
+}
 db.cliente.insertMany([
     {
-      _id: 1,
+      _id: Number(increment("cliente")),
       nombre: "Ana López",
       genero: "Femenino",
       identificacion: "123456789",
@@ -902,7 +998,7 @@ db.cliente.insertMany([
       correo_electronico: "ana@gmail.com"
     },
     {
-      _id: 2,
+      _id: Number(increment("cliente")),
       nombre: "Juan Pérez",
       genero: "Masculino",
       identificacion: "564564564",
@@ -911,7 +1007,7 @@ db.cliente.insertMany([
       correo_electronico: "juan@hotmail.com"
     },
     {
-      _id: 3,
+      _id: Number(increment("cliente")),
       nombre: "María Rodríguez",
       genero: "Femenino",
       identificacion: "656456456",
@@ -920,7 +1016,7 @@ db.cliente.insertMany([
       correo_electronico: "maria@gmail.com"
     },
     {
-      _id: 4,
+      _id: Number(increment("cliente")),
       nombre: "Luis González",
       genero: "Masculino",
       identificacion: "867674567",
@@ -929,7 +1025,7 @@ db.cliente.insertMany([
       correo_electronico: "luis@gmail.com"
     },
     {
-      _id: 5,
+      _id: Number(increment("cliente")),
       nombre: "Carmen Martínez",
       genero: "Femenino",
       identificacion: "667786546",
@@ -938,7 +1034,7 @@ db.cliente.insertMany([
       correo_electronico: "carmen@gmail.com"
     },
     {
-      _id: 6,
+      _id: Number(increment("cliente")),
       nombre: "Pedro Sánchez",
       genero: "Masculino",
       identificacion: "125621454",
@@ -947,7 +1043,7 @@ db.cliente.insertMany([
       correo_electronico: "pedro@gmail.com"
     },
     {
-      _id: 7,
+      _id: Number(increment("cliente")),
       nombre: "Laura Ramírez",
       genero: "Femenino",
       identificacion: "354256596",
@@ -956,7 +1052,7 @@ db.cliente.insertMany([
       correo_electronico: "laura@gmail.com"
     },
     {
-      _id: 8,
+      _id: Number(increment("cliente")),
       nombre: "Jorge Castro",
       genero: "Masculino",
       identificacion: "565148822",
@@ -965,7 +1061,7 @@ db.cliente.insertMany([
       correo_electronico: "jorge@gmail.com"
     },
     {
-      _id: 9,
+      _id: Number(increment("cliente")),
       nombre: "Sofía Díaz",
       genero: "Femenino",
       identificacion: "155478955",
@@ -974,7 +1070,7 @@ db.cliente.insertMany([
       correo_electronico: "sofia@gmail.com"
     },
     {
-      _id: 10,
+      _id: Number(increment("cliente")),
       nombre: "Ricardo Torres",
       genero: "Masculino",
       identificacion: "563255663",
@@ -987,29 +1083,37 @@ db.cliente.insertMany([
 //🚧🎫Inyeccion de data a la coleccion tickets🎫🚧
 
 use("zoologico_Campus_JJ");
+function increment(coleccion) {
+  const sequenceDocument = db.autoincrement.findOneAndUpdate(
+      { _id: `${coleccion}Id` },
+      { $inc: { sequence_value: 1 } },
+      { returnDocument: "after" }
+  );
+  return sequenceDocument.sequence_value;
+}
 db.tickets.insertMany([
     {
-      _id: 1,
+      _id: Number(increment("tickets")),
       tipo: "Adulto",
       precio: 15000
     },
     {
-      _id: 2,
+      _id: Number(increment("tickets")),
       tipo: "Niño",
       precio: 7500
     },
     {
-      _id: 3,
+      _id: Number(increment("tickets")),
       tipo: "Estudiante",
       precio: 10000
     },
     {
-      _id: 4,
+      _id: Number(increment("tickets")),
       tipo: "Pareja",
       precio: 25000
     },
     {
-      _id: 5,
+      _id: Number(increment("tickets")),
       tipo: "Familiar",
       precio: 30000
     }
@@ -1018,23 +1122,31 @@ db.tickets.insertMany([
 //🚧👩‍💼Inyeccion de data a la coleccion ventas👩‍💼🚧
 
 use("zoologico_Campus_JJ");
+function increment(coleccion) {
+  const sequenceDocument = db.autoincrement.findOneAndUpdate(
+      { _id: `${coleccion}Id` },
+      { $inc: { sequence_value: 1 } },
+      { returnDocument: "after" }
+  );
+  return sequenceDocument.sequence_value;
+}
 db.ventas.insertMany([
     {
-      _id: 1,
+      _id: Number(increment("ventas")),
       id_Cliente: 1,
       id_Tickets: 2,
       descripcion: "Venta de boletos para niños",
       valor_Compra: 7500
     },
     {
-      _id: 2,
+      _id: Number(increment("ventas")),
       id_Cliente: 2,
       id_Tickets: 1,
       descripcion: "Venta de boletos para adultos",
       valor_Compra: 15000
     },
     {
-      _id: 3,
+      _id: Number(increment("ventas")),
       id_Cliente: 3,
       id_Tickets: 5,
       descripcion: "Venta de boletos familiares",
@@ -1045,54 +1157,62 @@ db.ventas.insertMany([
 //🚧⚛️Inyeccion de data a la coleccion especialidad⚛️🚧
 
 use("zoologico_Campus_JJ");
+function increment(coleccion) {
+  const sequenceDocument = db.autoincrement.findOneAndUpdate(
+      { _id: `${coleccion}Id` },
+      { $inc: { sequence_value: 1 } },
+      { returnDocument: "after" }
+  );
+  return sequenceDocument.sequence_value;
+}
 db.especialidad.insertMany([
     {
-      _id: 1,
+      _id: Number(increment("especialidad")),
       nombre: "Cuidado de Mamíferos",
       descripcion: "Especialidad en el cuidado y manejo de mamíferos en el zoológico."
     },
     {
-      _id: 2,
+      _id: Number(increment("especialidad")),
       nombre: "Reptiles y Anfibios",
       descripcion: "Especialidad en la atención y conservación de reptiles y anfibios en el zoológico."
     },
     {
-      _id: 3,
+      _id: Number(increment("especialidad")),
       nombre: "Aviario",
       descripcion: "Especialidad en el manejo y cuidado de las aves en el aviario del zoológico."
     },
     {
-      _id: 4,
+      _id: Number(increment("especialidad")),
       nombre: "Veterinaria Exótica",
       descripcion: "Especialidad veterinaria enfocada en la salud de animales exóticos del zoológico."
     },
     {
-      _id: 5,
+      _id: Number(increment("especialidad")),
       nombre: "Educador Ambiental",
       descripcion: "Especialidad dedicada a la educación y concientización sobre la conservación del medio ambiente y la vida silvestre."
     },
     {
-      _id: 6,
+      _id: Number(increment("especialidad")),
       nombre: "Alimentación Animal",
       descripcion: "Especialidad en la preparación y distribución de la dieta de los animales del zoológico."
     },
     {
-      _id: 7,
+      _id: Number(increment("especialidad")),
       nombre: "Enriquecimiento Animal",
       descripcion: "Especialidad en diseñar actividades para enriquecer la vida de los animales en cautiverio."
     },
     {
-      _id: 8,
+      _id: Number(increment("especialidad")),
       nombre: "Cuidado de Grandes Felinos",
       descripcion: "Especialidad en el manejo y cuidado de los grandes felinos en el zoológico."
     },
     {
-      _id: 9,
+      _id: Number(increment("especialidad")),
       nombre: "Investigación Biológica",
       descripcion: "Especialidad en llevar a cabo investigaciones biológicas para entender y conservar la vida silvestre."
     },
     {
-      _id: 10,
+      _id: Number(increment("especialidad")),
       nombre: "Manejo de Hábitats",
       descripcion: "Especialidad en mantener y crear hábitats adecuados para los animales del zoológico."
     }
@@ -1101,9 +1221,17 @@ db.especialidad.insertMany([
 //🚧👩‍💻Inyeccion de data a la coleccion empleado👩‍💻🚧
 
 use("zoologico_Campus_JJ");
+function increment(coleccion) {
+  const sequenceDocument = db.autoincrement.findOneAndUpdate(
+      { _id: `${coleccion}Id` },
+      { $inc: { sequence_value: 1 } },
+      { returnDocument: "after" }
+  );
+  return sequenceDocument.sequence_value;
+}
 db.empleado.insertMany([
     {
-      _id: 1,
+      _id: Number(increment("empleado")),
       nombre: "Luisa Martínez",
       id_Especialidad: 1, // Cuidado de Mamíferos
       genero: "Femenino",
@@ -1114,7 +1242,7 @@ db.empleado.insertMany([
       correo_electronico: "luisa.martinez@gmail.com"
     },
     {
-      _id: 2,
+      _id: Number(increment("empleado")),
       nombre: "Carlos Rodríguez",
       id_Especialidad: 2, // Cuidado de Aves
       genero: "Masculino",
@@ -1125,7 +1253,7 @@ db.empleado.insertMany([
       correo_electronico: "carlos.rodriguez@gmail.com"
     },
     {
-      _id: 3,
+      _id: Number(increment("empleado")),
       nombre: "Laura Sánchez",
       id_Especialidad: 3, // Cuidado de Reptiles
       genero: "Femenino",
@@ -1136,7 +1264,7 @@ db.empleado.insertMany([
       correo_electronico: "laura.sanchez@gmail.com"
     },
     {
-      _id: 4,
+      _id: Number(increment("empleado")),
       nombre: "Javier López",
       id_Especialidad: 1, // Cuidado de Mamíferos
       genero: "Masculino",
@@ -1147,7 +1275,7 @@ db.empleado.insertMany([
       correo_electronico: "javier.lopez@gmail.com"
     },
     {
-      _id: 5,
+      _id: Number(increment("empleado")),
       nombre: "Ana Morales",
       id_Especialidad: 4, // Cuidado de Peces
       genero: "Femenino",
@@ -1158,7 +1286,7 @@ db.empleado.insertMany([
       correo_electronico: "ana.morales@gmail.com"
     },
     {
-      _id: 6,
+      _id: Number(increment("empleado")),
       nombre: "Andrés Gómez",
       id_Especialidad: 5, // Cuidado de Anfibios
       genero: "Masculino",
@@ -1169,7 +1297,7 @@ db.empleado.insertMany([
       correo_electronico: "andres.gomez@gmail.com"
     },
     {
-      _id: 7,
+      _id: Number(increment("empleado")),
       nombre: "María Torres",
       id_Especialidad: 2, // Cuidado de Aves
       genero: "Femenino",
@@ -1180,7 +1308,7 @@ db.empleado.insertMany([
       correo_electronico: "maria.torres@gmail.com"
     },
     {
-      _id: 8,
+      _id: Number(increment("empleado")),
       nombre: "Roberto Fernández",
       id_Especialidad: 3, // Cuidado de Reptiles
       genero: "Masculino",
@@ -1191,7 +1319,7 @@ db.empleado.insertMany([
       correo_electronico: "roberto.fernandez@gmail.com"
     },
     {
-      _id: 9,
+      _id: Number(increment("empleado")),
       nombre: "Sofía Ramírez",
       id_Especialidad: 4, // Cuidado de Peces
       genero: "Femenino",
@@ -1202,7 +1330,7 @@ db.empleado.insertMany([
       correo_electronico: "sofia.ramirez@gmail.com"
     },
     {
-      _id: 10,
+      _id: Number(increment("empleado")),
       nombre: "Juan Pérez",
       id_Especialidad: 5, // Cuidado de Anfibios
       genero: "Masculino",
@@ -1217,72 +1345,80 @@ db.empleado.insertMany([
 //🚧🧧Inyeccion de data a la coleccion emp_Pago🧧🚧
 
 use("zoologico_Campus_JJ");
+function increment(coleccion) {
+  const sequenceDocument = db.autoincrement.findOneAndUpdate(
+      { _id: `${coleccion}Id` },
+      { $inc: { sequence_value: 1 } },
+      { returnDocument: "after" }
+  );
+  return sequenceDocument.sequence_value;
+}
 db.emp_Pago.insertMany([
     {
-       _id: 1,
+       _id: Number(increment("emp_pago")),
        fecha_Pago: new Date("2023-08-01"),
        cantidad: 2800000,
        descripcion: "Pago correspondiente al mes de agosto",
        id_Empleado: 1
     },
     {
-       _id: 2,
+       _id: Number(increment("emp_pago")),
        fecha_Pago: new Date("2023-08-01"),
        cantidad: 400000,
        descripcion: "Pago de bono por desempeño",
        id_Empleado: 2
     },
     {
-       _id: 3,
+       _id: Number(increment("emp_pago")),
        fecha_Pago: new Date("2023-08-01"),
        cantidad: 2600000,
        descripcion: "Pago regular de salario",
        id_Empleado: 3
     },
     {
-       _id: 4,
+       _id: Number(increment("emp_pago")),
        fecha_Pago: new Date("2023-08-01"),
        cantidad: 2900000,
        descripcion: "Pago mensual por trabajo",
        id_Empleado: 4
     },
     {
-       _id: 5,
+       _id: Number(increment("emp_pago")),
        fecha_Pago: new Date("2023-08-01"),
        cantidad: 50000,
        descripcion: "Pago por horas extras",
        id_Empleado: 5
     },
     {
-       _id: 6,
+       _id: Number(increment("emp_pago")),
        fecha_Pago: new Date("2023-08-01"),
        cantidad: 120000,
        descripcion: "Pago por guardia nocturna",
        id_Empleado: 6
     },
     {
-       _id: 7,
+       _id: Number(increment("emp_pago")),
        fecha_Pago: new Date("2023-08-01"),
        cantidad: 150000,
        descripcion: "Pago por trabajo en el evento especial",
        id_Empleado: 7
     },
     {
-       _id: 8,
+       _id: Number(increment("emp_pago")),
        fecha_Pago: new Date("2023-08-01"),
        cantidad: 2700000,
        descripcion: "Pago regular de salario",
        id_Empleado: 8
     },
     {
-       _id: 9,
+       _id: Number(increment("emp_pago")),
        fecha_Pago: new Date("2023-08-01"),
        cantidad: 50000,
        descripcion: "Pago por horas extras",
        id_Empleado: 9
     },
     {
-       _id: 10,
+       _id: Number(increment("emp_pago")),
        fecha_Pago: new Date("2023-08-01"),
        cantidad: 300000,
        descripcion: "Pago por trabajo en el área de educación",
@@ -1293,9 +1429,17 @@ db.emp_Pago.insertMany([
 //🚧📟Inyeccion de data a la coleccion emp_Seguro📟🚧
 
 use("zoologico_Campus_JJ");
+function increment(coleccion) {
+  const sequenceDocument = db.autoincrement.findOneAndUpdate(
+      { _id: `${coleccion}Id` },
+      { $inc: { sequence_value: 1 } },
+      { returnDocument: "after" }
+  );
+  return sequenceDocument.sequence_value;
+}
 db.emp_Seguro.insertMany([
     {
-       _id: 1,
+       _id: Number(increment("emp_seguro")),
        estado: "Activo",
        tipo: "Salud",
        precio: 200000,
@@ -1304,7 +1448,7 @@ db.emp_Seguro.insertMany([
        id_Empleado: 1
     },
     {
-       _id: 2,
+       _id: Number(increment("emp_seguro")),
        estado: "Activo",
        tipo: "Vida",
        precio: 1500000,
@@ -1313,7 +1457,7 @@ db.emp_Seguro.insertMany([
        id_Empleado: 2
     },
     {
-       _id: 3,
+       _id: Number(increment("emp_seguro")),
        estado: "Activo",
        tipo: "Salud",
        precio: 800000,
@@ -1322,7 +1466,7 @@ db.emp_Seguro.insertMany([
        id_Empleado: 3
     },
     {
-       _id: 4,
+       _id: Number(increment("emp_seguro")),
        estado: "Activo",
        tipo: "Accidentes",
        precio: 1200000,
@@ -1331,7 +1475,7 @@ db.emp_Seguro.insertMany([
        id_Empleado: 4
     },
     {
-       _id: 5,
+       _id: Number(increment("emp_seguro")),
        estado: "Activo",
        tipo: "Vida",
        precio: 1700000,
@@ -1340,7 +1484,7 @@ db.emp_Seguro.insertMany([
        id_Empleado: 5
     },
     {
-       _id: 6,
+       _id: Number(increment("emp_seguro")),
        estado: "Activo",
        tipo: "Salud",
        precio: 1200000,
@@ -1349,7 +1493,7 @@ db.emp_Seguro.insertMany([
        id_Empleado: 6
     },
     {
-       _id: 7,
+       _id: Number(increment("emp_seguro")),
        estado: "Activo",
        tipo: "Vida",
        precio: 900000,
@@ -1358,7 +1502,7 @@ db.emp_Seguro.insertMany([
        id_Empleado: 7
     },
     {
-       _id: 8,
+       _id: Number(increment("emp_seguro")),
        estado: "Activo",
        tipo: "Salud",
        precio: 600000,
@@ -1367,7 +1511,7 @@ db.emp_Seguro.insertMany([
        id_Empleado: 8
     },
     {
-       _id: 9,
+       _id: Number(increment("emp_seguro")),
        estado: "Activo",
        tipo: "Accidentes",
        precio: 1400000,
@@ -1376,7 +1520,7 @@ db.emp_Seguro.insertMany([
        id_Empleado: 9
     },
     {
-       _id: 10,
+       _id: Number(increment("emp_seguro")),
        estado: "Activo",
        tipo: "Vida",
        precio: 1800000,
