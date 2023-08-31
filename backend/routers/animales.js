@@ -1,7 +1,7 @@
 import dotenv from 'dotenv';
 import {Router} from 'express'
 import { conx } from '../Database/connection.js';
-
+import { proxyPAnimales } from '../Middlewares/proxyPEndpoints.js';
 
 dotenv.config()
 const animales = Router();
@@ -27,7 +27,7 @@ animales.get("/",async ( req,res)=>{
     
 })
 
-animales.post('/',async (req,res)=>{
+animales.post('/', proxyPAnimales, async (req,res)=>{
     try{
         const id =  await increment("animales");
         let data= {_id: id, ...req.body};
@@ -50,15 +50,15 @@ animales.delete('/', async (req,res)=>{
     }
 })
 
-animales.put("/", async (req,res)=>{
+animales.put("/", proxyPAnimales, async (req,res)=>{
     let actualizaciones ={...req.body};
     let filter = parseInt(req.query.id, 10)
-try{
-    let working = await collection.updateOne({_id: filter},{$set: actualizaciones});
-    res.send("se ha actualizado la data")  
-} catch (error) {
-    res.send(error);
-}
+    try{
+        let working = await collection.updateOne({_id: filter},{$set: actualizaciones});
+        res.send("se ha actualizado la data")  
+    } catch (error) {
+        res.send(error);
+    }
 })
 
 export default animales;
