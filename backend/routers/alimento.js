@@ -1,7 +1,7 @@
 import dotenv from 'dotenv';
 import {Router} from 'express'
 import { conx } from '../Database/connection.js';
-
+import { proxyPAlimento } from '../Middlewares/proxyPEndpoints.js';
 
 dotenv.config()
 const alimento = Router();
@@ -26,7 +26,7 @@ alimento.get("/",async ( req,res)=>{
     
 })
 
-alimento.post('/',async (req,res)=>{
+alimento.post('/', proxyPAlimento , async (req,res)=>{
     try{
         const id =  await increment("alimento");
         let data= {_id: id, ...req.body, caducidad : new Date(req.body.caducidad)};
@@ -49,7 +49,7 @@ alimento.delete('/', async (req,res)=>{
     }
 })
 
-alimento.put("/", async (req,res)=>{
+alimento.put("/", proxyPAlimento , async (req,res)=>{
     let actualizaciones ={...req.body,caducidad:new Date(req.body.caducidad)};
     let filter = parseInt(req.query.id, 10)
 try{
