@@ -6,11 +6,21 @@ import { conx } from '../Database/connection.js';
 dotenv.config()
 const his_med_negativo = Router();
 let db= await conx();
-let collection = db.collection("his_med_negativo")
+let collection = db.collection("his_Med_Negativo")
+let autoincrement = db.collection("autoincrement");
+
+async function  increment(coleccion){
+    const sequenceDocument = await autoincrement.findOneAndUpdate(
+        { _id: `${coleccion}Id` },
+        { $inc: { sequence_value: 1 } },
+        { returnDocument: "after" }
+    );
+    return sequenceDocument.value.sequence_value;
+}
 
 his_med_negativo.get("/",async ( req,res)=>{
     try {
-    let funtion= await collection.find({}).toArray();
+    let funtion= await collection.find({}).sort({ _id : 1}).toArray();
     res.send(funtion)
     } catch (error) {
         res.send(error)
@@ -20,9 +30,10 @@ his_med_negativo.get("/",async ( req,res)=>{
 
 his_med_negativo.post('/',async (req,res)=>{
     try{
-        let data=req.body;
+        const id =  await increment("his_med_negativo");
+        let data= {_id: id, ...req.body};
         await collection.insertOne(data);
-        res.send(`se ah ingresado la data`)
+        res.send(`se ha ingresado la data`)
     }catch(Error){ 
         res.status(400).send(Error);
     }
@@ -33,7 +44,7 @@ his_med_negativo.delete('/', async (req,res)=>{
 
         let data = req.body
         let id =data._id
-        let funtion = await collection.deleteOne({"_id":id},)
+        let funtion = await collection.deleteOne({"_id":id})
         res.send(funtion)
 
     } catch (error) {
@@ -42,14 +53,14 @@ his_med_negativo.delete('/', async (req,res)=>{
 })
 
 his_med_negativo.put("/", async (req,res)=>{
-    let actualizaciones ={...req.body,caducidad:new Date(req.body.caducidad)};
+    let actualizaciones ={...req.body};
     let filter = parseInt(req.query.id, 10)
-try{
-    let working = await collection.updateOne({_id: filter},{$set: actualizaciones});
-    res.send("se ah actualizado la data")  
-} catch (error) {
-    res.send(error);
-}
+    try{
+        let working = await collection.updateOne({_id: filter},{$set: actualizaciones});
+        res.send("se ha actualizado la data")  
+    } catch (error) {
+        res.send(error);
+    }
 })
 
 export default his_med_negativo;
