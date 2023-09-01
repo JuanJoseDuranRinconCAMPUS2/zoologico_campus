@@ -1,7 +1,7 @@
 import dotenv from 'dotenv';
 import {Router} from 'express'
 import { conx } from '../Database/connection.js';
-
+import { proxyEmpSeguro } from '../Middlewares/proxyPEndpoints.js';
 
 dotenv.config()
 const emp_seguro = Router();
@@ -26,7 +26,7 @@ emp_seguro.get("/",async ( req,res)=>{
     }
 })
 
-emp_seguro.post('/',async (req,res)=>{
+emp_seguro.post('/', proxyEmpSeguro, async (req,res)=>{
     try{
         const id =  await increment("emp_seguro");
         let data= {_id: id, ...req.body, fecha_Expedicion : new Date(req.body.fecha_Expedicion), fecha_Expiracion : new Date(req.body.fecha_Expiracion)};
@@ -49,7 +49,7 @@ emp_seguro.delete('/', async (req,res)=>{
     }
 })
 
-emp_seguro.put("/", async (req,res)=>{
+emp_seguro.put("/", proxyEmpSeguro, async (req,res)=>{
     let actualizaciones ={...req.body, fecha_Expedicion : new Date(req.body.fecha_Expedicion), fecha_Expiracion : new Date(req.body.fecha_Expiracion)};
     let filter = parseInt(req.query.id, 10)
     try{
