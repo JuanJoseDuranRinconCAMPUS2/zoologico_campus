@@ -47,7 +47,7 @@ export const vPHabitat = [
     body("descripcion_Hab")
     .notEmpty().withMessage("descripcion_Hab no debe estar vacio")
     .isString().withMessage("descripcion_Hab debe ser un string")
-    .matches(/^[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ ,.\s]+/).withMessage("descripcion_Hab solo puede contener caracteres alfanuméricos, espacios y caracteres acentuados específicos ")
+    .matches(/^[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ ,.\s]+$/).withMessage("descripcion_Hab solo puede contener caracteres alfanuméricos, espacios y caracteres acentuados específicos ")
     .isLength({ max: 250 }).withMessage("descripcion_Hab debe tener máximo 250 caracteres"),
 
 ]
