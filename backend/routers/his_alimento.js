@@ -1,7 +1,7 @@
 import dotenv from 'dotenv';
 import {Router} from 'express'
 import { conx } from '../Database/connection.js';
-
+import { proxyHisAlimento } from '../Middlewares/proxyPEndpoints.js';
 
 dotenv.config()
 const his_alimento = Router();
@@ -18,7 +18,7 @@ async function  increment(coleccion){
     return sequenceDocument.value.sequence_value;
 }
 
-his_alimento.get("/",async ( req,res)=>{
+his_alimento.get("/", async ( req,res)=>{
     try {
         let funtion= await collection.find({}).sort({ _id : 1}).toArray();
         res.send(funtion)
@@ -28,7 +28,7 @@ his_alimento.get("/",async ( req,res)=>{
     
 })
 
-his_alimento.post('/',async (req,res)=>{
+his_alimento.post('/', proxyHisAlimento, async (req,res)=>{
     try{
         const id =  await increment("his_alimento");
         let data= {_id: id, ...req.body, fecha_Suministro : new Date(req.body.fecha_Suministro)};
@@ -51,7 +51,7 @@ his_alimento.delete('/', async (req,res)=>{
     }
 })
 
-his_alimento.put("/", async (req,res)=>{
+his_alimento.put("/", proxyHisAlimento, async (req,res)=>{
     let actualizaciones ={...req.body, fecha_Suministro:new Date(req.body.fecha_Suministro)};
     let filter = parseInt(req.query.id, 10)
     try{
