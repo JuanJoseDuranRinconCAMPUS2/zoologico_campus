@@ -6,6 +6,7 @@ import { vPCliente } from '../controllers/vCliente.js';
 import { vPempPago } from '../controllers/vEmp_pago.js';
 import { vPEmpSeguro } from '../controllers/vEmp_seguro.js';
 import { vPEmpleado } from '../controllers/vEmpleado.js';
+import { vPEspecialidad } from '../controllers/vEspecialidad.js';
 
 const proxyPAlimento = express();
 const proxyPAnimales = express();
@@ -13,6 +14,7 @@ const proxyPCliente = express();
 const proxyEmpPago = express();
 const proxyEmpSeguro = express();
 const proxyEmpleado = express();
+const proxyEspecialidad = express();
 
 
 //proxy usado para validar los metodos datos de entrada de los metodos put y post en alimentos
@@ -127,7 +129,7 @@ proxyEmpSeguro.use(vPEmpSeguro, async(req, res, next)=>{
     }
 });
 
-//proxy usado para validar los metodos datos de entrada de los metodos put y post en emp_seguro
+//proxy usado para validar los metodos datos de entrada de los metodos put y post en empleado
 
 proxyEmpleado.use(vPEmpleado, async(req, res, next)=>{
     try {
@@ -154,6 +156,25 @@ proxyEmpleado.use(vPEmpleado, async(req, res, next)=>{
     }
 });
 
+//proxy usado para validar los metodos datos de entrada de los metodos put y post en especialida
+
+proxyEspecialidad.use(vPEspecialidad, async(req, res, next)=>{
+    try {
+        const error = validationResult(req);
+        if(!error.isEmpty()) return res.status(400).json(error)
+        let { 
+            nombre_Esp : nombre,
+            descripcion_Esp : descripcion
+        } = req.body
+        req.body = {
+            nombre, descripcion
+        }
+        next();
+    } catch (err) {
+        res.status(err.status).send(err);
+    }
+});
+
 
 export {
     proxyPAlimento, 
@@ -161,5 +182,6 @@ export {
     proxyPCliente, 
     proxyEmpPago,
     proxyEmpSeguro,
-    proxyEmpleado
+    proxyEmpleado,
+    proxyEspecialidad
 }
