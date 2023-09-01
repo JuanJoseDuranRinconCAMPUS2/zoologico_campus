@@ -7,6 +7,7 @@ import { vPempPago } from '../controllers/vEmp_pago.js';
 import { vPEmpSeguro } from '../controllers/vEmp_seguro.js';
 import { vPEmpleado } from '../controllers/vEmpleado.js';
 import { vPEspecialidad } from '../controllers/vEspecialidad.js';
+import { vPHabitat } from '../controllers/vHabitat.js';
 
 const proxyPAlimento = express();
 const proxyPAnimales = express();
@@ -15,7 +16,7 @@ const proxyEmpPago = express();
 const proxyEmpSeguro = express();
 const proxyEmpleado = express();
 const proxyEspecialidad = express();
-
+const proxyHabitat = express();
 
 //proxy usado para validar los metodos datos de entrada de los metodos put y post en alimentos
 
@@ -156,7 +157,7 @@ proxyEmpleado.use(vPEmpleado, async(req, res, next)=>{
     }
 });
 
-//proxy usado para validar los metodos datos de entrada de los metodos put y post en especialida
+//proxy usado para validar los metodos datos de entrada de los metodos put y post en especialidad
 
 proxyEspecialidad.use(vPEspecialidad, async(req, res, next)=>{
     try {
@@ -175,6 +176,30 @@ proxyEspecialidad.use(vPEspecialidad, async(req, res, next)=>{
     }
 });
 
+//proxy usado para validar los metodos datos de entrada de los metodos put y post en habitat
+
+proxyHabitat.use(vPHabitat, async(req, res, next)=>{
+    try {
+        const error = validationResult(req);
+        if(!error.isEmpty()) return res.status(400).json(error)
+        let { 
+            nombre_Hab : nombre,
+            dimensiones_Hab : dimensiones,
+            lim_Especimenes_Hab : limite_Especimenes,
+            cant_Especimenes_Hab : cantidad_Especimenes,
+            precio_Mante_Hab : precio_Mantenimiento,
+            descripcion_Hab : descripcion
+        } = req.body
+        req.body = {
+            nombre, dimensiones, limite_Especimenes,
+            cantidad_Especimenes, precio_Mantenimiento, descripcion
+        }
+        next();
+    } catch (err) {
+        res.status(err.status).send(err);
+    }
+});
+
 
 export {
     proxyPAlimento, 
@@ -183,5 +208,6 @@ export {
     proxyEmpPago,
     proxyEmpSeguro,
     proxyEmpleado,
-    proxyEspecialidad
+    proxyEspecialidad,
+    proxyHabitat
 }
