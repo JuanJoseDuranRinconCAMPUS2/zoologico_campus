@@ -5,12 +5,14 @@ import { vPAnimales } from '../controllers/vAnimales.js';
 import { vPCliente } from '../controllers/vCliente.js';
 import { vPempPago } from '../controllers/vEmp_pago.js';
 import { vPEmpSeguro } from '../controllers/vEmp_seguro.js';
+import { vPEmpleado } from '../controllers/vEmpleado.js';
 
 const proxyPAlimento = express();
 const proxyPAnimales = express();
 const proxyPCliente = express();
 const proxyEmpPago = express();
 const proxyEmpSeguro = express();
+const proxyEmpleado = express();
 
 
 //proxy usado para validar los metodos datos de entrada de los metodos put y post en alimentos
@@ -125,11 +127,39 @@ proxyEmpSeguro.use(vPEmpSeguro, async(req, res, next)=>{
     }
 });
 
+//proxy usado para validar los metodos datos de entrada de los metodos put y post en emp_seguro
+
+proxyEmpleado.use(vPEmpleado, async(req, res, next)=>{
+    try {
+        const error = validationResult(req);
+        if(!error.isEmpty()) return res.status(400).json(error)
+        let { 
+            nombre_Emp : nombre,
+            id_Esp_Emp : id_Especialidad,
+            genero_Emp : genero,
+            iden_Emp : identificacion,
+            salario_Emp : salario,
+            edad_Emp : edad,
+            celular_Emp : celular,
+            correo_Emp : correo_electronico
+        } = req.body
+        req.body = {
+            nombre, id_Especialidad, genero, 
+            identificacion, salario, edad,
+            celular, correo_electronico
+        }
+        next();
+    } catch (err) {
+        res.status(err.status).send(err);
+    }
+});
+
 
 export {
     proxyPAlimento, 
     proxyPAnimales, 
     proxyPCliente, 
     proxyEmpPago,
-    proxyEmpSeguro
+    proxyEmpSeguro,
+    proxyEmpleado
 }
