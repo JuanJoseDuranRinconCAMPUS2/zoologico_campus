@@ -4,11 +4,14 @@ import { validationResult } from 'express-validator';
 import { vPAnimales } from '../controllers/vAnimales.js';
 import { vPCliente } from '../controllers/vCliente.js';
 import { vPempPago } from '../controllers/vEmp_pago.js';
+import { vPEmpSeguro } from '../controllers/vEmp_seguro.js';
 
 const proxyPAlimento = express();
 const proxyPAnimales = express();
 const proxyPCliente = express();
 const proxyEmpPago = express();
+const proxyEmpSeguro = express();
+
 
 //proxy usado para validar los metodos datos de entrada de los metodos put y post en alimentos
 
@@ -98,10 +101,35 @@ proxyEmpPago.use(vPempPago, async(req, res, next)=>{
     }
 });
 
+//proxy usado para validar los metodos datos de entrada de los metodos put y post en emp_seguro
+
+proxyEmpSeguro.use(vPEmpSeguro, async(req, res, next)=>{
+    try {
+        const error = validationResult(req);
+        if(!error.isEmpty()) return res.status(400).json(error)
+        let { 
+            estado_EmpSeguro : estado,
+            tipo_EmpSeguro : tipo,
+            precio_EmpSeguro : precio,
+            fc_Expe_EmpSeguro : fecha_Expedicion,
+            fc_Expi_EmpSeguro : fecha_Expiracion,
+            id_Emp_EmpSeguro : id_Empleado
+        } = req.body
+        req.body = {
+            estado, tipo, precio, 
+            fecha_Expedicion, fecha_Expiracion, id_Empleado
+        }
+        next();
+    } catch (err) {
+        res.status(err.status).send(err);
+    }
+});
+
 
 export {
     proxyPAlimento, 
     proxyPAnimales, 
     proxyPCliente, 
-    proxyEmpPago
+    proxyEmpPago,
+    proxyEmpSeguro
 }
