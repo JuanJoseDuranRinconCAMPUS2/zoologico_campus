@@ -1,7 +1,7 @@
 import dotenv from 'dotenv';
 import {Router} from 'express'
 import { conx } from '../Database/connection.js';
-
+import { proxyHabitat } from '../Middlewares/proxyPEndpoints.js';
 
 dotenv.config()
 const habitad = Router();
@@ -27,7 +27,7 @@ habitad.get("/",async ( req,res)=>{
     
 })
 
-habitad.post('/',async (req,res)=>{
+habitad.post('/', proxyHabitat, async (req,res)=>{
     try{
         const id =  await increment("habitat");
         let data= {_id: id, ...req.body};
@@ -51,7 +51,7 @@ habitad.delete('/', async (req,res)=>{
     }
 })
 
-habitad.put("/", async (req,res)=>{
+habitad.put("/", proxyHabitat, async (req,res)=>{
     let actualizaciones ={...req.body};
     let filter = parseInt(req.query.id, 10)
     try{
