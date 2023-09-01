@@ -1,7 +1,7 @@
 import dotenv from 'dotenv';
 import {Router} from 'express'
 import { conx } from '../Database/connection.js';
-
+import { proxyEmpleado } from '../Middlewares/proxyPEndpoints.js';
 
 dotenv.config()
 const empleado = Router();
@@ -27,7 +27,7 @@ empleado.get("/",async ( req,res)=>{
     
 })
 
-empleado.post('/',async (req,res)=>{
+empleado.post('/', proxyEmpleado, async (req,res)=>{
     try{
         const id =  await increment("empleado");
         let data= {_id: id, ...req.body};
@@ -50,7 +50,7 @@ empleado.delete('/', async (req,res)=>{
     }
 })
 
-empleado.put("/", async (req,res)=>{
+empleado.put("/", proxyEmpleado, async (req,res)=>{
     let actualizaciones ={...req.body};
     let filter = parseInt(req.query.id, 10)
     try{
