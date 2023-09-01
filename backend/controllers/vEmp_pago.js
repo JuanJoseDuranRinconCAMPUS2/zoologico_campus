@@ -13,7 +13,7 @@ export const vPempPago = [
     .isNumeric().withMessage("cantidad_EmpPago debe ser un numero")
     .custom(value => {
         if (parseInt(value) <= 0 || !(typeof value == "number")) {
-            throw new Error("cantidad_EmpPago debe ser un string con numeros positivos");
+            throw new Error("cantidad_EmpPago debe ser un numero positivo");
         }
         return true;
     }),
@@ -29,7 +29,7 @@ export const vPempPago = [
     .isNumeric().withMessage("id_Emp_EmpPago debe ser un numero")
     .custom(value => {
         if (parseInt(value) <= 0 || !(typeof value == "number")) {
-            throw new Error("id_Emp_EmpPago debe ser un string con numeros positivos");
+            throw new Error("id_Emp_EmpPago debe ser un numero positivo");
         }
         return true;
     })
