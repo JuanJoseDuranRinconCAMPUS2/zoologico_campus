@@ -1,6 +1,7 @@
 import dotenv from 'dotenv';
 import {Router} from 'express'
 import { conx } from '../Database/connection.js';
+import { proxyInventario } from '../Middlewares/proxyPEndpoints.js';
 
 dotenv.config()
 const inventario = Router();
@@ -28,7 +29,7 @@ inventario.get("/",async ( req,res)=>{
     
 })
 
-inventario.post('/',async (req,res)=>{
+inventario.post('/', proxyInventario, async (req,res)=>{
     try{
         const id =  await increment("inventario");
         let data= {_id: id, ...req.body, fecha_Ingreso : new Date(req.body.fecha_Ingreso)};
@@ -50,7 +51,7 @@ inventario.delete('/', async (req,res)=>{
     }
 })
 
-inventario.put("/", async (req,res)=>{
+inventario.put("/", proxyInventario, async (req,res)=>{
     let actualizaciones ={...req.body, fecha_Ingreso : new Date(req.body.fecha_Ingreso)};
     let filter = parseInt(req.query.id, 10)
     try{
