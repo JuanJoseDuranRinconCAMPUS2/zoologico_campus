@@ -16,6 +16,7 @@ import { vPHisMed } from '../controllers/vHis_med.js';
 import { vPInventario } from '../controllers/vInventario.js';
 import { vPMedicamento } from '../controllers/vMedicamento.js';
 import { vPProductos } from '../controllers/vProductos.js';
+import { vPTickets } from '../controllers/vTickets.js';
 
 const proxyPAlimento = express();
 const proxyPAnimales = express();
@@ -33,6 +34,7 @@ const proxyHisMed = express();
 const proxyInventario = express();
 const proxyMedicamento = express();
 const proxyProducto = express();
+const proxyTickets= express();
 
 //proxy usado para validar los metodos datos de entrada de los metodos put y post en alimentos
 
@@ -390,6 +392,25 @@ proxyProducto.use(vPProductos, async(req, res, next)=>{
     }
 });
 
+//proxy usado para validar los metodos datos de entrada de los metodos put y post en ticket
+
+proxyTickets.use(vPTickets, async(req, res, next)=>{
+    try {
+        const error = validationResult(req);
+        if(!error.isEmpty()) return res.status(400).json(error)
+        let { 
+            tipo_Ticket : tipo,
+            precio_Ticket : precio
+        } = req.body
+        req.body = {
+            tipo, precio
+        }
+        next();
+    } catch (err) {
+        res.status(err.status).send(err);
+    }
+})
+
 export {
     proxyPAlimento, 
     proxyPAnimales, 
@@ -406,5 +427,6 @@ export {
     proxyHisMed,
     proxyInventario,
     proxyMedicamento,
-    proxyProducto
+    proxyProducto,
+    proxyTickets
 }
