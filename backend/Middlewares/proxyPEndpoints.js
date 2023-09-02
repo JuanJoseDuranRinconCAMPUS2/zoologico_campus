@@ -10,6 +10,7 @@ import { vPEspecialidad } from '../controllers/vEspecialidad.js';
 import { vPHabitat } from '../controllers/vHabitat.js';
 import { vPHisAlimento } from '../controllers/vHis_alimento.js';
 import { vPHisAtencion } from '../controllers/vHis_atencion.js';
+import { vPHisExibicion } from '../controllers/vHis_exibicion.js';
 
 const proxyPAlimento = express();
 const proxyPAnimales = express();
@@ -21,6 +22,7 @@ const proxyEspecialidad = express();
 const proxyHabitat = express();
 const proxyHisAlimento = express();
 const proxyHisAtencion = express();
+const proxyHisExibicion = express();
 
 //proxy usado para validar los metodos datos de entrada de los metodos put y post en alimentos
 
@@ -249,6 +251,28 @@ proxyHisAtencion.use(vPHisAtencion, async(req, res, next)=>{
     }
 });
 
+//proxy usado para validar los metodos datos de entrada de los metodos put y post en his_exibicion
+
+proxyHisExibicion.use(vPHisExibicion, async(req, res, next)=>{
+    try {
+        const error = validationResult(req);
+        if(!error.isEmpty()) return res.status(400).json(error)
+        let { 
+            fc_Ini_HisExibicion : fecha_Inicio,
+            fc_Fin_HisExibicion : fecha_Fin,
+            id_Animal_HisExibicion : id_Animal,
+            descripcion_HisExibicion : descripcion
+        } = req.body
+        req.body = {
+            fecha_Inicio, fecha_Fin, descripcion,
+            id_Animal
+        }
+        next();
+    } catch (err) {
+        res.status(err.status).send(err);
+    }
+});
+
 export {
     proxyPAlimento, 
     proxyPAnimales, 
@@ -259,5 +283,6 @@ export {
     proxyEspecialidad,
     proxyHabitat,
     proxyHisAlimento,
-    proxyHisAtencion
+    proxyHisAtencion,
+    proxyHisExibicion
 }
