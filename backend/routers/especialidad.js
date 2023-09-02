@@ -2,6 +2,7 @@ import dotenv from 'dotenv';
 import {Router} from 'express'
 import { conx } from '../Database/connection.js';
 import { proxyEspecialidad } from '../Middlewares/proxyPEndpoints.js';
+import { proxyPValidateIds } from '../Middlewares/proxyIdsV.js';
 
 dotenv.config()
 const especialidad = Router();
@@ -37,10 +38,10 @@ especialidad.post('/', proxyEspecialidad, async (req,res)=>{
     }
 })
 
-especialidad.delete('/', async (req,res)=>{
+especialidad.delete('/', proxyPValidateIds, async (req,res)=>{
     try {
         let data = req.body
-        let id =data._id
+        let id =data.id
         let funtion = await collection.deleteOne({"_id":id})
         res.send(funtion)
 
@@ -49,7 +50,7 @@ especialidad.delete('/', async (req,res)=>{
     }
 })
 
-especialidad.put("/", proxyEspecialidad, async (req,res)=>{
+especialidad.put("/", proxyPValidateIds, proxyEspecialidad, async (req,res)=>{
     let actualizaciones ={...req.body};
     let filter = parseInt(req.query.id, 10)
     try{

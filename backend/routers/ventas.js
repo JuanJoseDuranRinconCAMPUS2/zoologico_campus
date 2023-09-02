@@ -2,6 +2,7 @@ import dotenv from 'dotenv';
 import {Router} from 'express'
 import { conx } from '../Database/connection.js';
 import { proxyVentas } from '../Middlewares/proxyPEndpoints.js';
+import { proxyPValidateIds } from '../Middlewares/proxyIdsV.js';
 
 dotenv.config()
 const ventas = Router();
@@ -39,10 +40,10 @@ ventas.post('/', proxyVentas, async (req,res)=>{
     }
 })
 
-ventas.delete('/', async (req,res)=>{
+ventas.delete('/', proxyPValidateIds, async (req,res)=>{
     try {
         let data = req.body
-        let id =data._id
+        let id =data.id
         let funtion = await collection.deleteOne({"_id":id})
         res.send(funtion)
 
@@ -51,15 +52,15 @@ ventas.delete('/', async (req,res)=>{
     }
 })
 
-ventas.put("/", proxyVentas, async (req,res)=>{
+ventas.put("/", proxyPValidateIds, proxyVentas, async (req,res)=>{
     let actualizaciones ={...req.body};
     let filter = parseInt(req.query.id, 10)
-try{
-    let working = await collection.updateOne({_id: filter},{$set: actualizaciones});
-    res.send("se ha actualizado la data")  
-} catch (error) {
-    res.send(error);
-}
-})
+    try{
+        let working = await collection.updateOne({_id: filter},{$set: actualizaciones});
+        res.send("se ha actualizado la data")  
+    } catch (error) {
+        res.send(error);
+    }
+    })
 
 export default ventas;

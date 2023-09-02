@@ -2,6 +2,7 @@ import dotenv from 'dotenv';
 import {Router} from 'express'
 import { conx } from '../Database/connection.js';
 import { proxyProducto } from '../Middlewares/proxyPEndpoints.js';
+import { proxyPValidateIds } from '../Middlewares/proxyIdsV.js';
 
 dotenv.config()
 const producto = Router();
@@ -39,10 +40,10 @@ producto.post('/', proxyProducto, async (req,res)=>{
     }
 })
 
-producto.delete('/', async (req,res)=>{
+producto.delete('/', proxyPValidateIds, async (req,res)=>{
     try {
         let data = req.body
-        let id =data._id
+        let id =data.id
         let funtion = await collection.deleteOne({"_id":id})
         res.send(funtion)
 
@@ -51,7 +52,7 @@ producto.delete('/', async (req,res)=>{
     }
 })
 
-producto.put("/", proxyProducto, async (req,res)=>{
+producto.put("/", proxyPValidateIds, proxyProducto, async (req,res)=>{
     let actualizaciones ={...req.body, caducidad : (req.body.caducidad == null) ? null : new Date(req.body.caducidad)};
     let filter = parseInt(req.query.id, 10)
 try{
