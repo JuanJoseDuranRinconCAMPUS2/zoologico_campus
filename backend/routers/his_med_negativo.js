@@ -1,7 +1,7 @@
 import dotenv from 'dotenv';
 import {Router} from 'express'
 import { conx } from '../Database/connection.js';
-
+import { proxyHisMedNeg } from '../Middlewares/proxyPEndpoints.js';
 
 dotenv.config()
 const his_med_negativo = Router();
@@ -28,7 +28,7 @@ his_med_negativo.get("/",async ( req,res)=>{
     
 })
 
-his_med_negativo.post('/',async (req,res)=>{
+his_med_negativo.post('/', proxyHisMedNeg, async (req,res)=>{
     try{
         const id =  await increment("his_med_negativo");
         let data= {_id: id, ...req.body};
@@ -52,7 +52,7 @@ his_med_negativo.delete('/', async (req,res)=>{
     }
 })
 
-his_med_negativo.put("/", async (req,res)=>{
+his_med_negativo.put("/", proxyHisMedNeg, async (req,res)=>{
     let actualizaciones ={...req.body};
     let filter = parseInt(req.query.id, 10)
     try{
