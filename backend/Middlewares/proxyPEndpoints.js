@@ -13,6 +13,7 @@ import { vPHisAtencion } from '../controllers/vHis_atencion.js';
 import { vPHisExibicion } from '../controllers/vHis_exibicion.js';
 import { vPHisMedNeg } from '../controllers/vHis_med_negativo.js';
 import { vPHisMed } from '../controllers/vHis_med.js';
+import { vPInventario } from '../controllers/vInventario.js';
 
 const proxyPAlimento = express();
 const proxyPAnimales = express();
@@ -27,6 +28,7 @@ const proxyHisAtencion = express();
 const proxyHisExibicion = express();
 const proxyHisMedNeg = express();
 const proxyHisMed = express();
+const proxyInventario = express();
 
 //proxy usado para validar los metodos datos de entrada de los metodos put y post en alimentos
 
@@ -320,6 +322,28 @@ proxyHisMed.use(vPHisMed, async(req, res, next)=>{
     }
 });
 
+//proxy usado para validar los metodos datos de entrada de los metodos put y post en inventario
+
+proxyInventario.use(vPInventario, async(req, res, next)=>{
+    try {
+        const error = validationResult(req);
+        if(!error.isEmpty()) return res.status(400).json(error)
+        let { 
+            cantidad_Inv : cantidad,
+            fc_Ing_Inv : fecha_Ingreso,
+            descripcion_Inv : descripcion,
+            id_Producto_Inv : id_Producto
+        } = req.body
+        req.body = {
+            cantidad, fecha_Ingreso, descripcion,
+            id_Producto
+        }
+        next();
+    } catch (err) {
+        res.status(err.status).send(err);
+    }
+});
+
 export {
     proxyPAlimento, 
     proxyPAnimales, 
@@ -333,5 +357,6 @@ export {
     proxyHisAtencion,
     proxyHisExibicion,
     proxyHisMedNeg,
-    proxyHisMed
+    proxyHisMed,
+    proxyInventario
 }
