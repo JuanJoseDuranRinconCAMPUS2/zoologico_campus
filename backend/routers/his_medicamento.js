@@ -1,7 +1,7 @@
 import dotenv from 'dotenv';
 import {Router} from 'express'
 import { conx } from '../Database/connection.js';
-
+import { proxyHisMed } from '../Middlewares/proxyPEndpoints.js';
 
 dotenv.config()
 const his_medicamento = Router();
@@ -28,7 +28,7 @@ his_medicamento.get("/",async ( req,res)=>{
     
 })
 
-his_medicamento.post('/',async (req,res)=>{
+his_medicamento.post('/', proxyHisMed, async (req,res)=>{
     try{
         const id =  await increment("his_medicamento");
         let data= {_id: id, ...req.body, fecha_Suministro : new Date(req.body.fecha_Suministro)};
@@ -51,7 +51,7 @@ his_medicamento.delete('/', async (req,res)=>{
     }
 })
 
-his_medicamento.put("/", async (req,res)=>{
+his_medicamento.put("/", proxyHisMed, async (req,res)=>{
     let actualizaciones ={...req.body, fecha_Suministro : new Date(req.body.fecha_Suministro)};
     let filter = parseInt(req.query.id, 10)
     try{
