@@ -1,7 +1,7 @@
 import dotenv from 'dotenv';
 import {Router} from 'express'
 import { conx } from '../Database/connection.js';
-
+import { proxyTickets } from '../Middlewares/proxyPEndpoints.js';
 
 dotenv.config()
 const tickets = Router();
@@ -28,7 +28,7 @@ tickets.get("/",async ( req,res)=>{
     
 })
 
-tickets.post('/',async (req,res)=>{
+tickets.post('/', proxyTickets, async (req,res)=>{
     try{
         const id = await increment("tickets");
         let data= {_id: id, ...req.body};
@@ -51,7 +51,7 @@ tickets.delete('/', async (req,res)=>{
     }
 })
 
-tickets.put("/", async (req,res)=>{
+tickets.put("/", proxyTickets, async (req,res)=>{
     let actualizaciones ={...req.body};
     let filter = parseInt(req.query.id, 10)
 try{
