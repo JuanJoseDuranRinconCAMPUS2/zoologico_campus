@@ -1,16 +1,27 @@
 import dotenv from 'dotenv';
 import {Router} from 'express'
 import { conx } from '../Database/connection.js';
-
+import { proxyHisExibicion } from '../Middlewares/proxyPEndpoints.js';
+import { proxyPValidateIds } from '../Middlewares/proxyIdsV.js';
 
 dotenv.config()
 const his_exibicion = Router();
 let db= await conx();
-let collection = db.collection("his_exibicion")
+let collection = db.collection("his_Exhibicion")
+let autoincrement = db.collection("autoincrement");
+
+async function  increment(coleccion){
+    const sequenceDocument = await autoincrement.findOneAndUpdate(
+        { _id: `${coleccion}Id` },
+        { $inc: { sequence_value: 1 } },
+        { returnDocument: "after" }
+    );
+    return sequenceDocument.value.sequence_value;
+}
 
 his_exibicion.get("/",async ( req,res)=>{
     try {
-    let funtion= await collection.find({}).toArray();
+    let funtion= await collection.find({}).sort({ _id : 1}).toArray();
     res.send(funtion)
     } catch (error) {
         res.send(error)
@@ -18,22 +29,22 @@ his_exibicion.get("/",async ( req,res)=>{
     
 })
 
-his_exibicion.post('/',async (req,res)=>{
+his_exibicion.post('/', proxyHisExibicion, async (req,res)=>{
     try{
-        let data=req.body;
+        const id =  await increment("his_exibicion");
+        let data= {_id: id, ...req.body, fecha_Inicio : new Date(req.body.fecha_Inicio), fecha_Fin : new Date(req.body.fecha_Fin)};
         await collection.insertOne(data);
-        res.send(`se ah ingresado la data`)
+        res.send(`se ha ingresado la data`)
     }catch(Error){ 
         res.status(400).send(Error);
     }
 })
 
-his_exibicion.delete('/', async (req,res)=>{
+his_exibicion.delete('/', proxyPValidateIds, async (req,res)=>{
     try {
         let data = req.body
-        let id =data._id
-        let funtion = await collection.deleteOne({"_id":id},)
-        res.send(funtion)
+        let id = data.id
+        let funtion = await collection.deleteOne({"_id":id})
         funtion.deletedCount === 1
         ? res.status(200).send({ status: 200, message:`Documento con el id ${id} ha sido eliminado correctamente`})
         : res.status(404).send({ status: 404, message:`El documento con el id ${id} no ha sido encontrado`});
@@ -43,22 +54,21 @@ his_exibicion.delete('/', async (req,res)=>{
     }
 })
 
-his_exibicion.put("/", async (req,res)=>{
-    let actualizaciones ={...req.body,caducidad:new Date(req.body.caducidad)};
+his_exibicion.put("/", proxyPValidateIds, proxyHisExibicion, async (req,res)=>{
+    let actualizaciones ={...req.body, fecha_Inicio : new Date(req.body.fecha_Inicio), fecha_Fin : new Date(req.body.fecha_Fin)};
     let filter = parseInt(req.query.id, 10)
-try{
-    let working = await collection.updateOne({_id: filter},{$set: actualizaciones});
-    res.send("se ah actualizado la data") 
-    if (working.modifiedCount > 0) {
-        res.status(200).send({status: 200, message: `Documento con el id ${filter} se ha actualizado Correctamente`});
-    } else {
-        working.matchedCount === 1
-        ? res.status(200).send({ status: 200, message:`No se realizaron cambios en el documento con el id ${filter}`})
-        : res.status(404).send({ status: 404, message:`El documento con el id ${filter} no ha sido encontrado`});
+    try{
+        let working = await collection.updateOne({_id: filter},{$set: actualizaciones});
+        if (working.modifiedCount > 0) {
+            res.status(200).send({status: 200, message: `Documento con el id ${filter} se ha actualizado Correctamente`});
+        } else {
+            working.matchedCount === 1
+            ? res.status(200).send({ status: 200, message:`No se realizaron cambios en el documento con el id ${filter}`})
+            : res.status(404).send({ status: 404, message:`El documento con el id ${filter} no ha sido encontrado`});
+        }
+    } catch (error) {
+        res.send(error);
     }
-} catch (error) {
-    res.send(error);
-}
 })
 
 export default his_exibicion;

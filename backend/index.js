@@ -24,6 +24,9 @@ dotenv.config();
 const Express=express();
 
 Express.use(express.json());
+
+//Funciones de manejo de data: 
+// ┌────── ☆ ─────────────
 Express.use('/alimento',alimento);
 Express.use('/animales',animales);
 Express.use('/cliente',cliente);
@@ -42,6 +45,8 @@ Express.use('/medicamento',medicamento);
 Express.use('/producto',producto);
 Express.use('/tickets',tickets);
 Express.use('/ventas',ventas);
+// └───────────── ☆ ──────
+
 
 const config=JSON.parse(process.env.MY_CONFIG);
 Express.listen(config,()=>{console.log(`http://${config.hostname}:${config.port}`)});
