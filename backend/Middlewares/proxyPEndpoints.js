@@ -14,6 +14,7 @@ import { vPHisExibicion } from '../controllers/vHis_exibicion.js';
 import { vPHisMedNeg } from '../controllers/vHis_med_negativo.js';
 import { vPHisMed } from '../controllers/vHis_med.js';
 import { vPInventario } from '../controllers/vInventario.js';
+import { vPMedicamento } from '../controllers/vMedicamento.js';
 
 const proxyPAlimento = express();
 const proxyPAnimales = express();
@@ -29,6 +30,7 @@ const proxyHisExibicion = express();
 const proxyHisMedNeg = express();
 const proxyHisMed = express();
 const proxyInventario = express();
+const proxyMedicamento = express();
 
 //proxy usado para validar los metodos datos de entrada de los metodos put y post en alimentos
 
@@ -344,6 +346,26 @@ proxyInventario.use(vPInventario, async(req, res, next)=>{
     }
 });
 
+//proxy usado para validar los metodos datos de entrada de los metodos put y post en medicamento
+
+proxyMedicamento.use(vPMedicamento, async(req, res, next)=>{
+    try {
+        const error = validationResult(req);
+        if(!error.isEmpty()) return res.status(400).json(error)
+        let { 
+            nombre_Med : nombre,
+            caducidad_Med : caducidad,
+            descripcion_Med : descripcion
+        } = req.body
+        req.body = {
+            nombre, caducidad, descripcion
+        }
+        next();
+    } catch (err) {
+        res.status(err.status).send(err);
+    }
+});
+
 export {
     proxyPAlimento, 
     proxyPAnimales, 
@@ -358,5 +380,6 @@ export {
     proxyHisExibicion,
     proxyHisMedNeg,
     proxyHisMed,
-    proxyInventario
+    proxyInventario,
+    proxyMedicamento
 }
