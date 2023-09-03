@@ -1,74 +1,27 @@
-import dotenv from 'dotenv';
 import {Router} from 'express'
-import { conx } from '../Database/connection.js';
+import routesVersioning  from 'express-routes-versioning';
 import { proxyHisAtencion } from '../Middlewares/proxyPEndpoints.js';
 import { proxyPValidateIds } from '../Middlewares/proxyIdsV.js';
+import { getHisAtencionV100 , postHisAtencionV100 , putHisAtencionV100 , deleteHisAtencionV100 } from '../versions/1.0.0/his_atencionv1.0.0.js';
 
-dotenv.config()
 const his_atencion = Router();
-let db= await conx();
-let collection = db.collection("his_Atencion")
-let autoincrement = db.collection("autoincrement");
+const version = routesVersioning();
 
-async function  increment(coleccion){
-    const sequenceDocument = await autoincrement.findOneAndUpdate(
-        { _id: `${coleccion}Id` },
-        { $inc: { sequence_value: 1 } },
-        { returnDocument: "after" }
-    );
-    return sequenceDocument.value.sequence_value;
-}
+his_atencion.get("/", version({
+    "1.0.0": getHisAtencionV100 
+}));
 
-his_atencion.get("/",async ( req,res)=>{
-    try {
-    let funtion= await collection.find({}).sort({ _id : 1}).toArray();
-    res.send(funtion)
-    } catch (error) {
-        res.send(error)
-    }
-    
-})
+his_atencion.post('/', proxyHisAtencion, version({
+    "1.0.0": postHisAtencionV100
+}))
 
-his_atencion.post('/', proxyHisAtencion, async (req,res)=>{
-    try{
-        const id =  await increment("his_atencion");
-        let data= {_id: id, ...req.body};
-        await collection.insertOne(data);
-        res.send(`se ha ingresado la data`)
-    }catch(Error){ 
-        res.status(400).send(Error);
-    }
-})
+his_atencion.delete('/', proxyPValidateIds, version({
+    "1.0.0": deleteHisAtencionV100
+}))
 
-his_atencion.delete('/', proxyPValidateIds, async (req,res)=>{
-    try {
-        let data = req.body
-        let id = data.id
-        let funtion = await collection.deleteOne({"_id":id})
-        funtion.deletedCount === 1
-        ? res.status(200).send({ status: 200, message:`Documento con el id ${id} ha sido eliminado correctamente`})
-        : res.status(404).send({ status: 404, message:`El documento con el id ${id} no ha sido encontrado`});
+his_atencion.put("/", proxyPValidateIds, proxyHisAtencion, version({
+    "1.0.0": putHisAtencionV100
+}))
 
-    } catch (error) {
-        res.status(400).send(Error);
-    }
-})
-
-his_atencion.put("/", proxyPValidateIds, proxyHisAtencion, async (req,res)=>{
-    let actualizaciones ={...req.body};
-    let filter = parseInt(req.query.id, 10)
-    try{
-        let working = await collection.updateOne({_id: filter},{$set: actualizaciones});
-        if (working.modifiedCount > 0) {
-            res.status(200).send({status: 200, message: `Documento con el id ${filter} se ha actualizado Correctamente`});
-        } else {
-            working.matchedCount === 1
-            ? res.status(200).send({ status: 200, message:`No se realizaron cambios en el documento con el id ${filter}`})
-            : res.status(404).send({ status: 404, message:`El documento con el id ${filter} no ha sido encontrado`});
-        } 
-    } catch (error) {
-        res.send(error);
-    }
-})
 
 export default his_atencion;
