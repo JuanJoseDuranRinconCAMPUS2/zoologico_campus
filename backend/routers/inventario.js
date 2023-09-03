@@ -1,74 +1,26 @@
-import dotenv from 'dotenv';
 import {Router} from 'express'
-import { conx } from '../Database/connection.js';
+import routesVersioning  from 'express-routes-versioning';
 import { proxyInventario } from '../Middlewares/proxyPEndpoints.js';
 import { proxyPValidateIds } from '../Middlewares/proxyIdsV.js';
+import { getInventarioV100 , postInventarioV100 , putInventarioV100 , deleteInventarioV100 } from '../versions/1.0.0/inventariov1.0.0.js';
 
-dotenv.config()
 const inventario = Router();
-let db= await conx();
-let collection = db.collection("inventario")
-let autoincrement = db.collection("autoincrement");
+const version = routesVersioning();
 
-async function  increment(coleccion){
-    const sequenceDocument = await autoincrement.findOneAndUpdate(
-        { _id: `${coleccion}Id` },
-        { $inc: { sequence_value: 1 } },
-        { returnDocument: "after" }
-    );
-    return sequenceDocument.value.sequence_value;
-}
+inventario.get("/", version({
+    "1.0.0": getInventarioV100 
+}));
 
-inventario.get("/",async ( req,res)=>{
-    try {
+inventario.post('/', proxyInventario, version({
+    "1.0.0": postInventarioV100
+}))
 
-    let funtion= await collection.find({}).sort({ _id : 1}).toArray();
-    res.send(funtion)
-    } catch (error) {
-        res.send(error)
-    }
-    
-})
+inventario.delete('/', proxyPValidateIds, version({
+    "1.0.0": deleteInventarioV100
+}))
 
-inventario.post('/', proxyInventario, async (req,res)=>{
-    try{
-        const id =  await increment("inventario");
-        let data= {_id: id, ...req.body, fecha_Ingreso : new Date(req.body.fecha_Ingreso)};
-        await collection.insertOne(data);
-        res.send(`se ha ingresado la data`)
-    }catch(Error){ 
-        res.status(400).send(Error);
-    }
-})
-
-inventario.delete('/', proxyPValidateIds, async (req,res)=>{
-    try {
-        let data = req.body
-        let id = data.id
-        let funtion = await collection.deleteOne({"_id":id})
-        funtion.deletedCount === 1
-        ? res.status(200).send({ status: 200, message:`Documento con el id ${id} ha sido eliminado correctamente`})
-        : res.status(404).send({ status: 404, message:`El documento con el id ${id} no ha sido encontrado`});
-    } catch (error) {
-        res.status(400).send(Error);
-    }
-})
-
-inventario.put("/", proxyPValidateIds, proxyInventario, async (req,res)=>{
-    let actualizaciones ={...req.body, fecha_Ingreso : new Date(req.body.fecha_Ingreso)};
-    let filter = parseInt(req.query.id, 10)
-    try{
-        let working = await collection.updateOne({_id: filter},{$set: actualizaciones});
-        if (working.modifiedCount > 0) {
-            res.status(200).send({status: 200, message: `Documento con el id ${filter} se ha actualizado Correctamente`});
-        } else {
-            working.matchedCount === 1
-            ? res.status(200).send({ status: 200, message:`No se realizaron cambios en el documento con el id ${filter}`})
-            : res.status(404).send({ status: 404, message:`El documento con el id ${filter} no ha sido encontrado`});
-        } 
-    } catch (error) {
-        res.send(error);
-    }
-})
+inventario.put("/", proxyPValidateIds, proxyInventario, version({
+    "1.0.0": putInventarioV100
+}))
 
 export default inventario;
