@@ -3,10 +3,10 @@ import { body } from "express-validator";
 export const vPHabitat = [
 
     body("nombre_Hab")
-    .notEmpty().withMessage("nombre_Esp no debe estar vacio")
-    .isString().withMessage("nombre_Esp debe ser un string")
-    .matches(/^[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ ]+$/).withMessage("nombre_Esp solo puede contener caracteres alfanuméricos, espacios y caracteres acentuados específicos ")
-    .isLength({ max: 100 }).withMessage("nombre_Esp debe tener máximo 100 caracteres"),
+    .notEmpty().withMessage("nombre_Hab no debe estar vacio")
+    .isString().withMessage("nombre_Hab debe ser un string")
+    .matches(/^[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ ]+$/).withMessage("nombre_Hab solo puede contener caracteres alfanuméricos, espacios y caracteres acentuados específicos ")
+    .isLength({ max: 100 }).withMessage("nombre_Hab debe tener máximo 100 caracteres"),
 
     body("dimensiones_Hab")
     .notEmpty().withMessage("dimensiones_Hab no debe estar vacio")
