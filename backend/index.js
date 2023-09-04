@@ -18,6 +18,8 @@ import medicamento from './routers/medicamento.js';
 import producto from './routers/producto.js'
 import tickets from './routers/tickets.js'
 import ventas from './routers/ventas.js'
+import AppCrearUsuario from './routers/crearUsuarios.js';
+import AppIngresoUsuario from './routers/ingresarUsuario.js';
 
 console.clear();
 dotenv.config();
@@ -47,6 +49,11 @@ Express.use('/tickets',tickets);
 Express.use('/ventas',ventas);
 // └───────────── ☆ ──────
 
+//Rutas de validacion
+// ════════ ⋆★⋆ ════════
+Express.use('/CrearUsuario', AppCrearUsuario);
+Express.use('/IngresarUsuario', AppIngresoUsuario);
+// ════════ ⋆★⋆ ════════
 
 const config=JSON.parse(process.env.MY_CONFIG);
 Express.listen(config,()=>{console.log(`http://${config.hostname}:${config.port}`)});

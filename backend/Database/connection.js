@@ -3,7 +3,7 @@ import { MongoClient } from "mongodb";
 dotnev.config();
 export async function conx() {
     try {
-        const uri = `mongodb+srv://${process.env.Atlas_User}:${process.env.Atlas_Password}@zoologicoproyect.dc8faa8.mongodb.net/${process.env.Atlas_DB}`;
+        const uri = `mongodb+srv://${process.env.Atlas_User}:${process.env.Atlas_Password}@zoologicoproyect.nhnraeu.mongodb.net/${process.env.Atlas_DB}`;
         const options = {
             useNewUrlParser: true,
             useUnifiedTopology: true,

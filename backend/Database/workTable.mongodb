@@ -2,6 +2,31 @@
 
 use("zoologico_Campus_JJ");
 
+//}🚧🦊Creacion de la coleccion del manejo de autoincrementables🔗🚧
+
+use("zoologico_Campus_JJ");
+db.createCollection("autoincrement");
+db.autoincrement.insertMany([
+    { _id: "alimentoId", sequence_value: 0 },
+    { _id: "animalesId", sequence_value: 0 },
+    { _id: "clienteId", sequence_value: 0 },
+    { _id: "emp_pagoId", sequence_value: 0 },
+    { _id: "emp_seguroId", sequence_value: 0 },
+    { _id: "empleadoId", sequence_value: 0 },
+    { _id: "especialidadId", sequence_value: 0 },
+    { _id: "habitatId", sequence_value: 0 },
+    { _id: "his_alimentoId", sequence_value: 0 },
+    { _id: "his_atencionId", sequence_value: 0 },
+    { _id: "his_exibicionId", sequence_value: 0 },
+    { _id: "his_med_negativoId", sequence_value: 0 },
+    { _id: "his_medicamentoId", sequence_value: 0 },
+    { _id: "inventarioId", sequence_value: 0 },
+    { _id: "medicamentoId", sequence_value: 0 },
+    { _id: "productoId", sequence_value: 0 },
+    { _id: "ticketsId", sequence_value: 0 },
+    { _id: "ventasId", sequence_value: 0 }
+]);
+
 //🚧⛩️Creacion de la coleccion habitat⛩️🚧
 
 use("zoologico_Campus_JJ");
@@ -854,27 +879,188 @@ db.createCollection("emp_Seguro", {
     validationLevel: "strict"
 });
 
-//}🚧🦊Creacion de la coleccion del manejo de autoincrementables🔗🚧
+//🕵️Construccion Validaciones y Usuarios🕵️
+
+//🚧👩‍💻Creacion de la coleccion Users👩‍💻🚧
 
 use("zoologico_Campus_JJ");
-db.createCollection("autoincrement");
-db.autoincrement.insertMany([
-    { _id: "alimentoId", sequence_value: 0 },
-    { _id: "animalesId", sequence_value: 0 },
-    { _id: "clienteId", sequence_value: 0 },
-    { _id: "emp_pagoId", sequence_value: 0 },
-    { _id: "emp_seguroId", sequence_value: 0 },
-    { _id: "empleadoId", sequence_value: 0 },
-    { _id: "especialidadId", sequence_value: 0 },
-    { _id: "habitatId", sequence_value: 0 },
-    { _id: "his_alimentoId", sequence_value: 0 },
-    { _id: "his_atencionId", sequence_value: 0 },
-    { _id: "his_exibicionId", sequence_value: 0 },
-    { _id: "his_med_negativoId", sequence_value: 0 },
-    { _id: "his_medicamentoId", sequence_value: 0 },
-    { _id: "inventarioId", sequence_value: 0 },
-    { _id: "medicamentoId", sequence_value: 0 },
-    { _id: "productoId", sequence_value: 0 },
-    { _id: "ticketsId", sequence_value: 0 },
-    { _id: "ventasId", sequence_value: 0 }
+db.createCollection("usuario_Api", {
+    validator: {
+        $jsonSchema: {
+           bsonType: "object",
+           required: [ 
+                "_id",
+                "nombre",
+                "email",
+                "password",
+                "versiones",
+                "codigo_Rol"
+            ],
+           title: "usuario_Api Validation",
+           properties: {
+                _id: { 
+                    bsonType: "objectId" , 
+                    description: "'_id' must be a valid ObjectId"
+                },
+
+                nombre: { 
+                    bsonType: "string" , 
+                    description: "'nombre' must be of type string with letters and numbers.",
+                    pattern: "^[a-zA-Z0-9 ]+$",
+                    maxLength: 255
+                },
+
+                email: { 
+                    bsonType: "string" , 
+                    pattern : "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$",
+                    description: "'email' must be an email of less than 255 characters",
+                    maxLength: 255
+                },
+
+                password: { 
+                    bsonType: "string" , 
+                    description: "'password' must be of type string.",
+                    maxLength: 255
+                },
+
+                versiones: {
+                  bsonType: "array", 
+                  description: "'versiones' must be an array",
+                  items: {
+                      bsonType: "string"
+                  }
+              },
+
+                codigo_Rol: { 
+                    bsonType: "string" , 
+                    description: "'codigo_Rol' must be a valid code",
+                    pattern: "^(CsWscIpEhqmr1987|CsWscYrYwyvemws22501)$"
+                }
+           },
+           additionalProperties: false
+        }
+    },
+    validationAction: "error",
+    validationLevel: "strict"
+});
+//indices para evitar usuarios y correos repetidos.
+use("zoologico_Campus_JJ");
+db.usuario_Api.createIndex({ nombre: 1 }, { unique: true });
+db.usuario_Api.createIndex({ email: 1 }, { unique: true });
+
+//🚧🔎Creacion de la coleccion roles_Api🔎🚧
+
+use("zoologico_Campus_JJ");
+db.createCollection("roles_Api", {
+    validator: {
+        $jsonSchema: {
+           bsonType: "object",
+           required: [ 
+                "_id",
+                "rol",
+                "acceso"
+            ],
+           title: "roles_Api Validation",
+           properties: {
+                _id: { 
+                    bsonType: "string" , 
+                    description: "'_id' must be of type string",
+                    pattern: "^(CsWscIpEhqmr1987|CsWscYrYwyvemws22501)$"
+                },
+
+                rol: { 
+                    bsonType: "string" , 
+                    description: "'rol' must be of type string with letters and numbers.",
+                    pattern: "^[a-zA-Z0-9 ]+$",
+                    maxLength: 20
+                },
+
+                acceso: { 
+                    bsonType: "string" , 
+                    description: "'acceso' must be of type string with letters and numbers.",
+                    pattern: "^[a-zA-Z0-9 ]+$",
+                    maxLength: 200
+                }
+           },
+           additionalProperties: false
+        }
+    },
+    validationAction: "error",
+    validationLevel: "strict",
+});
+
+
+// el codigo de codigo "CsWscIpEhqmr1987" es una encriptacion con cifrado cesar con desplazamiento 4, la palabra original es "YoSoyElAdmin1987"
+// el codigo de codigo "CsWscYrYwyvemws22501" es una encriptacion con cifrado cesar con desplazamiento 4, la palabra original es "YoSoyUnUsuario22501"
+
+//🚧🎫Creacion de la coleccion tokens_Api🎫🚧
+
+use("zoologico_Campus_JJ");
+db.createCollection("tokens_Api", {
+    validator: {
+        $jsonSchema: {
+           bsonType: "object",
+           required: [ 
+                "_id",
+                "id_usuario_Api",
+                "token"
+            ],
+           title: "tokens_Api Validation",
+           properties: {
+                _id: { 
+                    bsonType: "objectId" , 
+                    description: "'_id' must be a valid ObjectId"
+                },
+
+                id_usuario_Api: { 
+                    bsonType: "objectId" , 
+                    description: "'id_usuario_Api' must be a valid ObjectId"
+                },
+
+                token: { 
+                    bsonType: "string" , 
+                    description: "'token' must be of type string.",
+                }
+           },
+           additionalProperties: false
+        }
+    },
+    validationAction: "error",
+    validationLevel: "strict",
+});
+
+
+//🪓🔎Inyeccion de documentos para la coleccion Roles_Api🔎🪓
+
+use("zoologico_Campus_JJ");
+db.roles_Api.insertMany([
+    {
+      "_id": "CsWscIpEhqmr1987",
+      "rol": "Admin",
+      "acceso": "Acceso completo a los metodos de crud de todas las colecciones solicitadas por el admin"
+    },
+    {
+      "_id": "CsWscYrYwyvemws22501",
+      "rol": "Usuario",
+      "acceso": "Acceso a los metodos GET de todas las colecciones solicitadas por el admin"
+    }
 ]);
+
+use("zoologico_Campus_JJ");
+db.usuario_Api.insertMany([
+    {
+      "nombre": "FredCreations",
+      "email": "juanjoseduranrincon404@gmail.com",
+      "password": "Monochrome1dcg3",
+      "versiones" : ["1.0.1", "1.1.0"],
+      "codigo_Rol": "CsWscIpEhqmr1987"
+    },
+    {
+      "nombre": "Silver", 
+      "email": "prueba1@gmail.com",
+      "password": "1234",
+      "versiones" : ["1.0.0", "1.1.0"],
+      "codigo_Rol": "CsWscYrYwyvemws22501"
+    }
+]);
+  

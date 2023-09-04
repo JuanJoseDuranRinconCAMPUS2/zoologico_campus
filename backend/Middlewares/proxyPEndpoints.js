@@ -18,6 +18,8 @@ import { vPMedicamento } from '../controllers/vMedicamento.js';
 import { vPProductos } from '../controllers/vProductos.js';
 import { vPTickets } from '../controllers/vTickets.js';
 import { vPVentas } from '../controllers/vVentas.js';
+import { vCreacionUsu } from '../controllers/vCreacionUsuario.js';
+import { vIngresoUsu } from '../controllers/vIngresoUsuario.js';
 
 const proxyPAlimento = express();
 const proxyPAnimales = express();
@@ -37,6 +39,8 @@ const proxyMedicamento = express();
 const proxyProducto = express();
 const proxyTickets= express();
 const proxyVentas= express();
+const proxyCreacionUsu= express();
+const proxyIngresoUsu= express();
 
 //proxy usado para validar los metodos datos de entrada de los metodos put y post en alimentos
 
@@ -435,6 +439,49 @@ proxyVentas.use(vPVentas, async(req, res, next)=>{
     }
 })
 
+//proxy usado para validar los metodos datos de entrada de los metodos put y post en creacion de usuarios
+
+proxyCreacionUsu.use(vCreacionUsu, async(req, res, next)=>{
+    try {
+        const error = validationResult(req);
+        if(!error.isEmpty()) return res.status(400).json(error)
+        let { 
+            nombre_Usuario : nombre,
+            correo_Usuario : email,
+            contraseña_Usuario : password,
+            versiones_Api : versiones,
+            codeRol_Usuario : codigo_Rol
+        } = req.body
+        req.body = {
+            nombre, email, password,
+            versiones, codigo_Rol
+        }
+        next();
+    } catch (err) {
+        res.status(err.status).send(err);
+    }
+})
+
+//proxy usado para validar los metodos datos de entrada de los metodos put y post en creacion de usuarios
+
+proxyIngresoUsu.use(vIngresoUsu, async(req, res, next)=>{
+    try {
+        const error = validationResult(req);
+        if(!error.isEmpty()) return res.status(400).json(error)
+        let { 
+            nombre_Usuario : nombre,
+            contraseña_Usuario : password,
+            endPoint_Solicitado : endPoint
+        } = req.body
+        req.body = {
+            nombre, password, endPoint
+        }
+        next();
+    } catch (err) {
+        res.status(err.status).send(err);
+    }
+})
+
 export {
     proxyPAlimento, 
     proxyPAnimales, 
@@ -453,5 +500,7 @@ export {
     proxyMedicamento,
     proxyProducto,
     proxyTickets,
-    proxyVentas
+    proxyVentas,
+    proxyCreacionUsu,
+    proxyIngresoUsu
 }
